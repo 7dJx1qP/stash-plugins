@@ -24,13 +24,13 @@
         }
         for (const { endpoint, api_key } of data.data.configuration.general.stashBoxes) {
             if (endpoint !== 'https://stashdb.org/graphql') continue;
-            await stash.runPluginTask("StashSetStashboxFavoritePerformers", "Set Stashbox Favorite Performers", [{"key":"endpoint", "value":{"str": endpoint}}, {"key":"api_key", "value":{"str": api_key}}]);
+            await stash.runPluginTask("stashSetStashboxFavoritePerformers", "Set Stashbox Favorite Performers", [{"key":"endpoint", "value":{"str": endpoint}}, {"key":"api_key", "value":{"str": api_key}}]);
         }
     }
 
     async function runSetStashBoxFavoritePerformerTask(endpoint, api_key, stashId, favorite) {
         if (endpoint !== 'https://stashdb.org/graphql') return;
-        return stash.runPluginTask("StashSetStashboxFavoritePerformers", "Set Stashbox Favorite Performer", [{"key":"endpoint", "value":{"str": endpoint}}, {"key":"api_key", "value":{"str": api_key}}, {"key":"stash_id", "value":{"str": stashId}}, {"key":"favorite", "value":{"b": favorite}}]);
+        return stash.runPluginTask("stashSetStashboxFavoritePerformers", "Set Stashbox Favorite Performer", [{"key":"endpoint", "value":{"str": endpoint}}, {"key":"api_key", "value":{"str": api_key}}, {"key":"stash_id", "value":{"str": stashId}}, {"key":"favorite", "value":{"b": favorite}}]);
     }
 
     stash.addEventListener('page:performers', function () {
