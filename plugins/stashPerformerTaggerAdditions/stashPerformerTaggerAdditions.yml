@@ -1,5 +1,5 @@
 name: Stash Performer Tagger Additions
-# requires: StashUserscriptLibrary
+# requires: stashUserscriptLibrary
 description: Adds performer birthdate and url to tagger view. Makes clicking performer name open stash profile in new tab instead of current tab.
 version: 0.2.0
 ui:

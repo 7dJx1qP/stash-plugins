@@ -1,5 +1,5 @@
 name: Stash Performer Image Cropper
-# requires: StashUserscriptLibrary
+# requires: stashUserscriptLibrary
 description: Adds an image cropper to performer page
 version: 0.3.0
 ui:

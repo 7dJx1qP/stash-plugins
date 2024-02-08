@@ -1,5 +1,5 @@
 name: Stash Markers Autoscroll
-# requires: StashUserscriptLibrary
+# requires: stashUserscriptLibrary
 description: Automatically scrolls markers page
 version: 0.1.0
 ui:

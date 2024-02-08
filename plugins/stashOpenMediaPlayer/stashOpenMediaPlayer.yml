@@ -1,5 +1,5 @@
 name: Stash Open Media Player
-# requires: StashUserscriptLibrary
+# requires: stashUserscriptLibrary
 description: Open scene filepath links in an external media player
 version: 0.2.1
 ui:

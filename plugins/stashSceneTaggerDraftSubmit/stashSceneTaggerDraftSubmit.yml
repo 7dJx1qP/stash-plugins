@@ -1,5 +1,5 @@
 name: Stash Scene Tagger Draft Submit
-# requires: StashUserscriptLibrary
+# requires: stashUserscriptLibrary
 description: Adds button to Scene Tagger to submit draft to stashdb
 version: 0.1.0
 ui:

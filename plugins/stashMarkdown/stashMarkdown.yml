@@ -1,5 +1,5 @@
 name: Stash Markdown
-# requires: StashUserscriptLibrary
+# requires: stashUserscriptLibrary
 description: Adds markdown parsing to tag description fields
 version: 0.2.0
 ui:

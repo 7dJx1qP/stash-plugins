@@ -1,5 +1,5 @@
 name: Stash Set Stashbox Favorite Performers
-# requires: StashUserscriptLibrary
+# requires: stashUserscriptLibrary
 description: Set Stashbox favorite performers according to stash favorites
 version: 0.3.0
 ui:

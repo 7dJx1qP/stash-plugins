@@ -1,5 +1,5 @@
 name: Stash StashID Icon
-# requires: StashUserscriptLibrary
+# requires: stashUserscriptLibrary
 description: Adds checkmark icon to performer and studio cards that have a stashid
 version: 0.2.0
 ui:

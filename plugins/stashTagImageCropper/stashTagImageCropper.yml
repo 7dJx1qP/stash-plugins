@@ -1,5 +1,5 @@
 name: Stash Tag Image Cropper
-# requires: StashUserscriptLibrary
+# requires: stashUserscriptLibrary
 description: Adds an image cropper to tag page
 version: 0.2.0
 ui:
