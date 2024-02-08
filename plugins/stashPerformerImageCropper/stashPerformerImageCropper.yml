@@ -1,0 +1,12 @@
+name: Stash Performer Image Cropper
+# requires: StashUserscriptLibrary
+description: Adds an image cropper to performer page
+version: 0.3.0
+ui:
+  requires: 
+  - stashUserscriptLibrary
+  css:
+  - https://cdn.jsdelivr.net/npm/cropperjs@1.6.1/dist/cropper.min.css
+  javascript:
+  - https://cdn.jsdelivr.net/npm/cropperjs@1.6.1/dist/cropper.min.js
+  - stashPerformerImageCropper.js

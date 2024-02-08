@@ -1,0 +1,24 @@
+name: Stash Open Media Player
+# requires: StashUserscriptLibrary
+description: Open scene filepath links in an external media player
+version: 0.2.1
+ui:
+  requires: 
+  - stashUserscriptLibrary
+  javascript:
+  - stashOpenMediaPlayer.js
+settings:
+  mediaPlayerPath:
+    displayName: Media Player Path
+    type: STRING
+exec:
+  - python
+  - "{pluginDir}/stashOpenMediaPlayer.py"
+interface: raw
+tasks:
+  - name: Open in Media Player
+    description: Open video
+    defaultArgs:
+      name: mediaplayer
+      path: null
+      mediaPlayerPath: null

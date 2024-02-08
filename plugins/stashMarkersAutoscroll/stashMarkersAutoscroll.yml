@@ -1,0 +1,9 @@
+name: Stash Markers Autoscroll
+# requires: StashUserscriptLibrary
+description: Automatically scrolls markers page
+version: 0.1.0
+ui:
+  requires: 
+  - stashUserscriptLibrary
+  javascript:
+  - stashMarkersAutoscroll.js

@@ -1,0 +1,9 @@
+name: Stash Stats
+# requires: StashUserscriptLibrary
+description: Add stats to stats page
+version: 0.3.0
+ui:
+  requires: 
+  - stashUserscriptLibrary
+  javascript:
+  - stashStats.js

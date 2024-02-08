@@ -1,0 +1,2 @@
+requests==2.30.0
+pystashlib==0.4.2

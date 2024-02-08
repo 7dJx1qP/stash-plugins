@@ -1,0 +1,10 @@
+name: Stash Markdown
+# requires: StashUserscriptLibrary
+description: Adds markdown parsing to tag description fields
+version: 0.2.0
+ui:
+  requires: 
+  - stashUserscriptLibrary
+  javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/marked/4.2.2/marked.min.js
+  - stashMarkdown.js

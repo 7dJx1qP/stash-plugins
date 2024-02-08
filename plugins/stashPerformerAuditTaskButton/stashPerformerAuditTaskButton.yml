@@ -1,0 +1,22 @@
+name: Stash Performer Audit Task Button
+# requires: StashUserscriptLibrary
+description: Adds a button to the performers page to run the audit plugin task
+version: 0.3.0
+ui:
+  requires: 
+  - stashUserscriptLibrary
+  javascript:
+  - stashPerformerAuditTaskButton.js
+settings:
+  performerPageButton:
+    displayName: Display audit performer urls button on performers page
+    type: BOOLEAN
+exec:
+  - python
+  - "{pluginDir}/stashPerformerAuditTaskButton.py"
+interface: raw
+tasks:
+  - name: Audit performer urls
+    description: Audit performer IAFD urls for dupes
+    defaultArgs:
+      name: audit_performer_urls

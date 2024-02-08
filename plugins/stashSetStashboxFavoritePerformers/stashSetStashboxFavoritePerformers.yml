@@ -1,0 +1,32 @@
+name: Stash Set Stashbox Favorite Performers
+# requires: StashUserscriptLibrary
+description: Set Stashbox favorite performers according to stash favorites
+version: 0.3.0
+ui:
+  requires: 
+  - stashUserscriptLibrary
+  javascript:
+  - stashSetStashboxFavoritePerformers.js
+settings:
+  performerPageButton:
+    displayName: Display set stashbox favorites button on performers page
+    type: BOOLEAN
+exec:
+  - python
+  - "{pluginDir}/stashSetStashboxFavoritePerformers.py"
+interface: raw
+tasks:
+  - name: Set Stashbox Favorite Performers
+    description: Set Stashbox favorite performers according to stash favorites
+    defaultArgs:
+      name: favorite_performers_sync
+      endpoint: null
+      api_key: null
+  - name: Set Stashbox Favorite Performer
+    description: Update Stashbox performer favorite status
+    defaultArgs:
+      name: favorite_performer_sync
+      endpoint: null
+      api_key: null
+      stash_id: null
+      favorite: null
