@@ -37,7 +37,8 @@ buildPlugin()
     zipfile=$(realpath "$outdir/$plugin_id.zip")
     
     pushd "$dir" > /dev/null
-    zip -r "$zipfile" . > /dev/null
+    find . -type f -exec touch -d "$updated" {} +
+    zip -0 -r -oX "$zipfile" . > /dev/null
     popd > /dev/null
 
     name=$(grep "^name:" "$f" | head -n 1 | cut -d' ' -f2- | sed -e 's/\r//' -e 's/^"\(.*\)"$/\1/')
