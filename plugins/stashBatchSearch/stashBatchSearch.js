@@ -13,7 +13,7 @@
         getElementByXpath,
         sortElementChildren,
         createElementFromHTML,
-    } = window.stash;
+    } = window.stash7dJx1qP;
 
     let running = false;
     const buttons = [];

@@ -9,7 +9,7 @@
         waitForElementByXpath,
         getElementByXpath,
         reloadImg,
-    } = window.stash;
+    } = window.stash7dJx1qP;
 
     document.body.appendChild(document.createElement('style')).textContent = `
     .cropper-view-box img { transition: none; }

@@ -12,7 +12,7 @@
         getClosestAncestor,
         insertAfter,
         createElementFromHTML,
-    } = window.stash;
+    } = window.stash7dJx1qP;
 
     async function submitDraft(sceneId, stashBoxIndex) {
         const reqData = {

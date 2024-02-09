@@ -1,9 +1,9 @@
 name: Stash StashID Input
-# requires: stashUserscriptLibrary
+# requires: stashUserscriptLibrary7dJx1qP
 description: Adds input for entering new stash id to performer details page and studio page
 version: 0.5.0
 ui:
   requires: 
-  - stashUserscriptLibrary
+  - stashUserscriptLibrary7dJx1qP
   javascript:
   - stashStashIDInput.js

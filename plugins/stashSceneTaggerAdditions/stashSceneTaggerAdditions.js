@@ -10,7 +10,7 @@
         getElementByXpath,
         insertAfter,
         createElementFromHTML,
-    } = window.stash;
+    } = window.stash7dJx1qP;
 
     function formatDuration(s) {
         const sec_num = parseInt(s, 10);

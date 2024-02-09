@@ -8,7 +8,7 @@
         waitForElementClass,
         waitForElementByXpath,
         getElementByXpath,
-    } = window.stash;
+    } = window.stash7dJx1qP;
 
     stash.visiblePluginTasks.push('Audit performer urls');
 

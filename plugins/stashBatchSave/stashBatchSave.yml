@@ -1,9 +1,9 @@
 name: Stash Batch Save
-# requires: stashUserscriptLibrary
+# requires: stashUserscriptLibrary7dJx1qP
 description: Adds a batch save button to scenes tagger
 version: 0.5.2
 ui:
   requires: 
-  - stashUserscriptLibrary
+  - stashUserscriptLibrary7dJx1qP
   javascript:
   - stashBatchSave.js

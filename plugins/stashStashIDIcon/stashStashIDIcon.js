@@ -10,7 +10,7 @@
         getElementByXpath,
         insertAfter,
         createElementFromHTML,
-    } = window.stash;
+    } = window.stash7dJx1qP;
 
     document.body.appendChild(document.createElement('style')).textContent = `
     .peformer-stashid-icon {

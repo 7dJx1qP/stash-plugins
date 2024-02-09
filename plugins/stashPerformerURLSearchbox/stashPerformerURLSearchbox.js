@@ -8,7 +8,7 @@
         waitForElementClass,
         waitForElementByXpath,
         getElementByXpath,
-    } = window.stash;
+    } = window.stash7dJx1qP;
 
     stash.addEventListener('page:performers', function () {
         waitForElementClass("btn-toolbar", function () {

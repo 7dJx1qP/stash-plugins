@@ -1,9 +1,9 @@
 name: Stash Batch Query Edit
-# requires: stashUserscriptLibrary
+# requires: stashUserscriptLibrary7dJx1qP
 description: Batch modify scene tagger search query
 version: 0.6.0
 ui:
   requires: 
-  - stashUserscriptLibrary
+  - stashUserscriptLibrary7dJx1qP
   javascript:
   - stashBatchQueryEdit.js

@@ -1,9 +1,9 @@
 name: Stash Batch Search
-# requires: stashUserscriptLibrary
+# requires: stashUserscriptLibrary7dJx1qP
 description: Adds a batch search button to scenes and performers tagger
 version: 0.4.2
 ui:
   requires: 
-  - stashUserscriptLibrary
+  - stashUserscriptLibrary7dJx1qP
   javascript:
   - stashBatchSearch.js

@@ -22,7 +22,7 @@
         getElementByXpath,
         getElementsByXpath,
         createElementFromHTML,
-    } = window.stash;
+    } = window.stash7dJx1qP;
 
     async function updatePerformerStashIDs(performerId, stash_ids) {
         const reqData = {

@@ -10,7 +10,7 @@
         getElementByXpath,
         insertAfter,
         reloadImg,
-    } = window.stash;
+    } = window.stash7dJx1qP;
 
     let markers = [];
     let markersFilter;

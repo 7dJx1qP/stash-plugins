@@ -9,7 +9,7 @@
         waitForElementByXpath,
         getElementByXpath,
         createElementFromHTML,
-    } = window.stash;
+    } = window.stash7dJx1qP;
 
     async function getPerformerMarkersCount(performerId) {
         const reqData = {

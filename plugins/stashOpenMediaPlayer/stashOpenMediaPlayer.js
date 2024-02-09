@@ -8,7 +8,7 @@
         waitForElementClass,
         waitForElementByXpath,
         getElementByXpath,
-    } = window.stash;
+    } = window.stash7dJx1qP;
 
     async function openMediaPlayerTask(path) {
         // fixes decodeURI breaking on %'s because they are not encoded

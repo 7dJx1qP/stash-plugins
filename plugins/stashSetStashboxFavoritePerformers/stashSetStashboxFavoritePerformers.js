@@ -10,7 +10,7 @@
         getElementByXpath,
         getClosestAncestor,
         updateTextInput,
-    } = window.stash;
+    } = window.stash7dJx1qP;
 
     const MIN_REQUIRED_PLUGIN_VERSION = '0.6.0';
 

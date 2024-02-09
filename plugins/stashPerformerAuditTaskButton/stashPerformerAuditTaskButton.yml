@@ -1,10 +1,10 @@
 name: Stash Performer Audit Task Button
-# requires: stashUserscriptLibrary
+# requires: stashUserscriptLibrary7dJx1qP
 description: Adds a button to the performers page to run the audit plugin task
 version: 0.3.0
 ui:
   requires: 
-  - stashUserscriptLibrary
+  - stashUserscriptLibrary7dJx1qP
   javascript:
   - stashPerformerAuditTaskButton.js
 settings:

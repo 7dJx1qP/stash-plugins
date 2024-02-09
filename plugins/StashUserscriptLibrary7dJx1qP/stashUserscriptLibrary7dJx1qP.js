@@ -1,7 +1,3 @@
-// Stash Userscript Library
-// Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-// version 0.36.0
-
 (function () {
     'use strict';
 
@@ -915,7 +911,7 @@
         };
     };
 
-    if (!window.stash) {
-        window.stash = stash();
+    if (!window.stash7dJx1qP) {
+        window.stash7dJx1qP = stash();
     }
 })();

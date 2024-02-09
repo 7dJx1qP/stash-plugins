@@ -10,7 +10,7 @@
         getElementByXpath,
         insertAfter,
         reloadImg,
-    } = window.stash;
+    } = window.stash7dJx1qP;
 
     function processMarkdown(el) {
         el.innerHTML = marked.parse(el.innerHTML);
