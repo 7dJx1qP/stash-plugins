@@ -11,8 +11,10 @@
     } = window.stash7dJx1qP;
 
     stash.addEventListener('page:performers', function () {
-        waitForElementClass("btn-toolbar", function () {
+        waitForElementClass("btn-toolbar", async function () {
             if (!document.getElementById('new-performer-filter')) {
+                const settings = await stash.getPluginConfig('stashNewPerformerFilterButton');
+
                 const toolbar = document.querySelector(".btn-toolbar");
 
                 const newGroup = document.createElement('div');
@@ -22,8 +24,8 @@
                 const newButton = document.createElement("a");
                 newButton.setAttribute("id", "new-performer-filter");
                 newButton.classList.add('btn', 'btn-secondary');
-                newButton.innerHTML = 'New Performers';
-                newButton.href = `${stash.serverUrl}/performers?disp=3&sortby=created_at&sortdir=desc`;
+                newButton.innerHTML = settings['buttonText'] || 'New Performers';
+                newButton.href = settings['filterUrl'] || `${stash.serverUrl}/performers?disp=3&sortby=created_at&sortdir=desc`;
                 newGroup.appendChild(newButton);
             }
         });
