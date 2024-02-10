@@ -1,10 +1,29 @@
 name: Stash Markdown
 # requires: stashUserscriptLibrary7dJx1qP
 description: Adds markdown parsing to tag description fields
-version: 0.3.0
+version: 0.4.0
 ui:
   requires: 
   - stashUserscriptLibrary7dJx1qP
   javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/marked/4.2.2/marked.min.js
   - stashMarkdown.js
+settings:
+  scenes:
+    displayName: Scenes
+    type: BOOLEAN
+  movies:
+    displayName: Movies
+    type: BOOLEAN
+  galleries:
+    displayName: Galleries
+    type: BOOLEAN
+  performers:
+    displayName: Performers
+    type: BOOLEAN
+  studios:
+    displayName: Studios
+    type: BOOLEAN
+  tags:
+    displayName: Tags
+    type: BOOLEAN
