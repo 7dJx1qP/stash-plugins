@@ -446,6 +446,11 @@
                     this.log.debug('[Navigation] Performer Page - Movies');
                     this.dispatchEvent(new Event('page:performer:movies'));
                 }
+                // performer appears with page
+                else if (this.matchUrl(location, /\/performers\/\d+\/appearswith/)) {
+                    this.log.debug('[Navigation] Performer Page - Appears With');
+                    this.dispatchEvent(new Event('page:performer:appearswith'));
+                }
                 // performer page
                 else if (this.matchUrl(location, /\/performers\/\d+/)) {
                     this.log.debug('[Navigation] Performers Page');
