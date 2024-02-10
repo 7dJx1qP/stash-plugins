@@ -1,7 +1,7 @@
 name: Stash New Performer Filter Button
 # requires: stashUserscriptLibrary7dJx1qP
 description: Adds a customizable button to the performers page. Links to a new performers filter by default.
-version: 0.4.0
+version: 0.4.1
 ui:
   requires: 
   - stashUserscriptLibrary7dJx1qP

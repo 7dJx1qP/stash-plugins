@@ -20,7 +20,7 @@
                 const toolbar = document.querySelector(".btn-toolbar");
 
                 const newGroup = document.createElement('div');
-                newGroup.classList.add('mx-2', 'mb-2', settings['performerPageButton'] ? 'd-flex' : 'd-none');
+                newGroup.classList.add('mx-2', 'mb-2', settings?.performerPageButton ? 'd-flex' : 'd-none');
                 toolbar.appendChild(newGroup);
 
                 const auditButton = document.createElement("button");

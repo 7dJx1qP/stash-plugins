@@ -24,8 +24,8 @@
                 const newButton = document.createElement("a");
                 newButton.setAttribute("id", "new-performer-filter");
                 newButton.classList.add('btn', 'btn-secondary');
-                newButton.innerHTML = settings['buttonText'] || 'New Performers';
-                newButton.href = settings['filterUrl'] || `${stash.serverUrl}/performers?disp=3&sortby=created_at&sortdir=desc`;
+                newButton.innerHTML = settings?.buttonText || 'New Performers';
+                newButton.href = settings?.filterUrl || `${stash.serverUrl}/performers?disp=3&sortby=created_at&sortdir=desc`;
                 newGroup.appendChild(newButton);
             }
         });

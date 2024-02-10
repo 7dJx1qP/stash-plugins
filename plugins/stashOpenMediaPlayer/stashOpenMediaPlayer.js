@@ -16,7 +16,7 @@
         // decode encoded path but then encode % and # otherwise VLC breaks
         const encodedPath = decodeURI(encodedPctPath).replaceAll('%', '%25').replaceAll('#', '%23');
         const settings = await stash.getPluginConfig('stashOpenMediaPlayer');
-        stash.runPluginTask("stashOpenMediaPlayer", "Open in Media Player", [{"key":"path", "value":{"str": encodedPath}}, {"key":"mediaPlayerPath", "value":{"str": settings['mediaPlayerPath']}}]);
+        stash.runPluginTask("stashOpenMediaPlayer", "Open in Media Player", [{"key":"path", "value":{"str": encodedPath}}, {"key":"mediaPlayerPath", "value":{"str": settings?.mediaPlayerPath}}]);
     }
     stash.openMediaPlayerTask = openMediaPlayerTask;
 
