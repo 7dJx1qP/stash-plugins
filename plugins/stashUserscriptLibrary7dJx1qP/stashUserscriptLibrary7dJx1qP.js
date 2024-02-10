@@ -455,26 +455,44 @@
                 else if (this.matchUrl(location, /\/performers\/\d+/)) {
                     this.log.debug('[Navigation] Performers Page');
                     this.dispatchEvent(new Event('page:performer'));
-                    this.dispatchEvent(new Event('page:performer:details'));
+                }
+                // performer any page
+                if (this.matchUrl(location, /\/performers\/\d+/)) {
+                    this.log.debug('[Navigation] Performer Page - Any');
+                    this.dispatchEvent(new Event('page:performer:any'));
 
-                    waitForElementClass('performer-tabs', (className, targetNode) => {
+                    waitForElementClass('detail-header', (className, targetNode) => {
                         const observerOptions = {
-                            childList: true
+                            attributes : true,
+                            attributeFilter : ['class']
                         }
                         const observer = new MutationObserver(mutations => {
                             let isPerformerEdit = false;
+                            let isCollapsed = false;
                             mutations.forEach(mutation => {
-                                mutation.addedNodes.forEach(node => {
-                                    if (node.id === 'performer-edit') {
+                                if (mutation.attributeName === 'class') {
+                                    if (mutation.target.classList.contains('edit')) {
                                         isPerformerEdit = true;
                                     }
-                                });
+                                    else if (mutation.target.classList.contains('collapsed')) {
+                                        isCollapsed = true;
+                                    }
+                                    else if (mutation.target.classList.contains('full-width')) {
+                                        isCollapsed = false;
+                                    }
+                                }
                             });
                             if (isPerformerEdit) {
                                 this.dispatchEvent(new Event('page:performer:edit'));
                             }
                             else {
                                 this.dispatchEvent(new Event('page:performer:details'));
+                            }
+                            if (isCollapsed) {
+                                this.dispatchEvent(new Event('page:performer:details:collapsed'));
+                            }
+                            else {
+                                this.dispatchEvent(new Event('page:performer:details:expanded'));
                             }
                         });
                         observer.observe(targetNode[0], observerOptions);
@@ -521,6 +539,11 @@
                 else if (this.matchUrl(location, /\/studios\/\d+/)) {
                     this.log.debug('[Navigation] Studio Page');
                     this.dispatchEvent(new Event('page:studio'));
+                }
+                // studio any page
+                if (this.matchUrl(location, /\/studios\/\d+/)) {
+                    this.log.debug('[Navigation] Studio Page - Any');
+                    this.dispatchEvent(new Event('page:studio:any'));
                 }
                 // studios wall
                 else if (this.matchUrl(location, /\/studios\?/)) {

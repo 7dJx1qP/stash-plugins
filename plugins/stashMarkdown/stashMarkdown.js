@@ -96,11 +96,7 @@
             });
         }
     }
-    stash.addEventListener('page:performer:scenes', performerPageHandler);
-    stash.addEventListener('page:performer:galleries', performerPageHandler);
-    stash.addEventListener('page:performer:movies', performerPageHandler);
-    stash.addEventListener('page:performer:appearswith', performerPageHandler);
-    stash.addEventListener('page:performer:details', performerPageHandler);
+    stash.addEventListener('page:performer:any', performerPageHandler);
 
     // Studio details is visible regardless of chosen tab
     async function studioPageHandler() {
@@ -112,11 +108,5 @@
             });
         }
     }
-    stash.addEventListener('page:studio:galleries', studioPageHandler);
-    stash.addEventListener('page:studio:images', studioPageHandler);
-    stash.addEventListener('page:studio:performers', studioPageHandler);
-    stash.addEventListener('page:studio:movies', studioPageHandler);
-    stash.addEventListener('page:studio:childstudios', studioPageHandler);
-    stash.addEventListener('page:studio:scenes', studioPageHandler);
-    stash.addEventListener('page:studio', studioPageHandler);
+    stash.addEventListener('page:studio:any', studioPageHandler);
 })();

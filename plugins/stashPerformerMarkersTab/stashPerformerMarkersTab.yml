@@ -1,7 +1,7 @@
 name: Stash Performer Markers Tab
 # requires: stashUserscriptLibrary7dJx1qP
 description: Adds a Markers link to performer pages
-version: 0.1.0
+version: 0.2.0
 ui:
   requires: 
   - stashUserscriptLibrary7dJx1qP

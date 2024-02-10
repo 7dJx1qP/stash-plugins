@@ -1,15 +1,3 @@
-// ==UserScript==
-// @name        Stash StashID Input
-// @namespace   https://github.com/7dJx1qP/stash-userscripts
-// @description Adds input for entering new stash id to performer details page and studio page
-// @version     0.5.0
-// @author      7dJx1qP
-// @match       http://localhost:9999/*
-// @grant       window
-// @grant       GM_setClipboard
-// @require     https://raw.githubusercontent.com/7dJx1qP/stash-userscripts/develop/src\StashUserscriptLibrary.js
-// ==/UserScript==
-
 (function () {
     'use strict';
 
@@ -23,6 +11,11 @@
         getElementsByXpath,
         createElementFromHTML,
     } = window.stash7dJx1qP;
+
+    document.body.appendChild(document.createElement('style')).textContent = `
+    .stash_id_input { order: 1; }
+    .detail-header.collapsed .stash_id_input { display: none; }
+    `;
 
     async function updatePerformerStashIDs(performerId, stash_ids) {
         const reqData = {
@@ -196,7 +189,7 @@ fragment StudioData on Studio {
         }
     }
 
-    stash.addEventListener('page:performer:details', function () {
+    function performerPageHandler() {
         waitForElementClass('detail-group', async function (elementId, el) {
             if (!document.getElementById('update-stashids-endpoint')) {
                 const detailsList = el[0];
@@ -279,7 +272,9 @@ fragment StudioData on Studio {
 
             }
         });
-    });
+    }
+    stash.addEventListener('page:performer:any', performerPageHandler);
+    stash.addEventListener('page:performer:details', performerPageHandler);
 
     stash.addEventListener('page:studio:scenes', function () {
         waitForElementByXpath("//div[contains(@class, 'studio-details')]", async function (xpath, el) {
