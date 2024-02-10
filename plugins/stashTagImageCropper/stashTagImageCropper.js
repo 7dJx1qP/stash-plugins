@@ -72,6 +72,7 @@
                     cropStart.style.display = 'inline-block';
                     cropAccept.style.display = 'none';
                     cropCancel.style.display = 'none';
+                    const cropInfoText = cropInfo.innerText;
                     cropInfo.innerText = '';
     
                     const reqData = {
@@ -88,9 +89,19 @@
                             }
                           }`
                     }
-                    await stash.callGQL(reqData);
-                    reloadImg(image.src);
-                    cropper.destroy();
+                    const resp = await stash.callGQL(reqData);
+                    if (resp?.data?.tagUpdate?.id) {
+                        reloadImg(image.src);
+                        cropper.destroy();
+                    }
+                    else if (resp?.errors[0]?.message) {
+                        cropping = true;
+                        cropStart.style.display = 'none';
+                        cropAccept.style.display = 'inline-block';
+                        cropCancel.style.display = 'inline-block';
+                        cropInfo.innerText = cropInfoText;
+                        alert(resp.errors[0].message);
+                    }
                 });
                 cropBtnContainer.appendChild(cropAccept);
                 
