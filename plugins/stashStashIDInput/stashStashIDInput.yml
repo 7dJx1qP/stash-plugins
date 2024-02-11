@@ -7,3 +7,10 @@ ui:
   - stashUserscriptLibrary7dJx1qP
   javascript:
   - stashStashIDInput.js
+settings:
+  performers:
+    displayName: Performers
+    type: BOOLEAN
+  studios:
+    displayName: Studios
+    type: BOOLEAN

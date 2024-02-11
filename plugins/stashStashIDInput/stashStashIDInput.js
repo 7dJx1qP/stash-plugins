@@ -17,6 +17,14 @@
     .detail-header.collapsed .stash_id_input { display: none; }
     `;
 
+    let settings = null;
+    async function isStashIDInputEnabled(page) {
+        if (settings === null) {
+            settings = await stash.getPluginConfig('stashStashIdInput');
+        }
+        return settings?.[page];
+    }
+
     async function updatePerformerStashIDs(performerId, stash_ids) {
         const reqData = {
             "variables": {
@@ -245,22 +253,26 @@ fragment StudioData on Studio {
         }
     }
 
-    function performerPageHandler() {
-        waitForElementClass('detail-group', async function (className, el) {
-            if (!document.getElementById('update-stashids-endpoint')) {
-                await createStashIdInput(el[0], '/performers/', getPerformerStashIDs, updatePerformerStashIDs);
-            }
-        });
+    async function performerPageHandler() {
+        if (await isStashIDInputEnabled('performers')) {
+            waitForElementClass('detail-group', async function (className, el) {
+                if (!document.getElementById('update-stashids-endpoint')) {
+                    await createStashIdInput(el[0], '/performers/', getPerformerStashIDs, updatePerformerStashIDs);
+                }
+            });
+        }
     }
     stash.addEventListener('page:performer:any', performerPageHandler);
     stash.addEventListener('page:performer:details', performerPageHandler);
 
-    function studioPageHandler() {
-        waitForElementClass('detail-group', async function (className, el) {
-            if (!document.getElementById('update-stashids-endpoint')) {
-                await createStashIdInput(el[0], '/studios/', getStudioStashIDs, updateStudioStashIDs);
-            }
-        });
+    async function studioPageHandler() {
+        if (await isStashIDInputEnabled('studios')) {
+            waitForElementClass('detail-group', async function (className, el) {
+                if (!document.getElementById('update-stashids-endpoint')) {
+                    await createStashIdInput(el[0], '/studios/', getStudioStashIDs, updateStudioStashIDs);
+                }
+            });
+        }
     }
     stash.addEventListener('page:studio:any', studioPageHandler);
     stash.addEventListener('page:studio:details', studioPageHandler);
