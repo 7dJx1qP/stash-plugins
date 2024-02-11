@@ -467,12 +467,12 @@
                             attributeFilter : ['class']
                         }
                         const observer = new MutationObserver(mutations => {
-                            let isPerformerEdit = false;
+                            let isEdit = false;
                             let isCollapsed = false;
                             mutations.forEach(mutation => {
                                 if (mutation.attributeName === 'class') {
                                     if (mutation.target.classList.contains('edit')) {
-                                        isPerformerEdit = true;
+                                        isEdit = true;
                                     }
                                     else if (mutation.target.classList.contains('collapsed')) {
                                         isCollapsed = true;
@@ -482,7 +482,7 @@
                                     }
                                 }
                             });
-                            if (isPerformerEdit) {
+                            if (isEdit) {
                                 this.dispatchEvent(new Event('page:performer:edit'));
                             }
                             else {
@@ -544,6 +544,43 @@
                 if (this.matchUrl(location, /\/studios\/\d+/)) {
                     this.log.debug('[Navigation] Studio Page - Any');
                     this.dispatchEvent(new Event('page:studio:any'));
+
+                    waitForElementClass('detail-header', (className, targetNode) => {
+                        const observerOptions = {
+                            attributes : true,
+                            attributeFilter : ['class']
+                        }
+                        const observer = new MutationObserver(mutations => {
+                            let isEdit = false;
+                            let isCollapsed = false;
+                            mutations.forEach(mutation => {
+                                if (mutation.attributeName === 'class') {
+                                    if (mutation.target.classList.contains('edit')) {
+                                        isEdit = true;
+                                    }
+                                    else if (mutation.target.classList.contains('collapsed')) {
+                                        isCollapsed = true;
+                                    }
+                                    else if (mutation.target.classList.contains('full-width')) {
+                                        isCollapsed = false;
+                                    }
+                                }
+                            });
+                            if (isEdit) {
+                                this.dispatchEvent(new Event('page:studio:edit'));
+                            }
+                            else {
+                                this.dispatchEvent(new Event('page:studio:details'));
+                            }
+                            if (isCollapsed) {
+                                this.dispatchEvent(new Event('page:studio:details:collapsed'));
+                            }
+                            else {
+                                this.dispatchEvent(new Event('page:studio:details:expanded'));
+                            }
+                        });
+                        observer.observe(targetNode[0], observerOptions);
+                    });
                 }
                 // studios wall
                 else if (this.matchUrl(location, /\/studios\?/)) {
