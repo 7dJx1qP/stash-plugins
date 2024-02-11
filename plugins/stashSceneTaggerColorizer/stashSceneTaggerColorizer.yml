@@ -1,7 +1,8 @@
 name: Stash Scene Tagger Colorizer
 # requires: stashUserscriptLibrary7dJx1qP
 description: Colorize scene tagger match results to show matching and mismatching scene data.
-version: 0.7.0
+version: 0.7.1
+url: https://github.com/7dJx1qP/stash-plugins#stash-scene-tagger-colorizer
 ui:
   requires: 
   - stashUserscriptLibrary7dJx1qP
