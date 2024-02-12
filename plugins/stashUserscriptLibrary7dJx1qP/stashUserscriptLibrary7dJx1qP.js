@@ -376,6 +376,18 @@
                 };
                 return this.callGQL(reqData);
             }
+            async getUIConfig() {
+                const reqData = {
+                    "operationName": "Configuration",
+                    "variables": {},
+                    "query": `query Configuration {
+                        configuration {
+                          ui
+                        }
+                      }`
+                };
+                return this.callGQL(reqData);
+            }
             matchUrl(location, fragment) {
                 const regexp = concatRegexp(new RegExp(location.origin), fragment);
                 this.log.debug(regexp, location.href.match(regexp));
