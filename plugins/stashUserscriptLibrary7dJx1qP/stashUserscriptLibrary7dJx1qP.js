@@ -362,6 +362,19 @@
                 const data = await this.getPluginConfigs();
                 return data.data.configuration.plugins[pluginId];
             }
+            async updatePluginConfig(pluginId, config) {
+                const reqData = {
+                    "operationName": "ConfigurePlugin",
+                    "variables": {
+                        "plugin_id": pluginId,
+                        "input": config
+                    },
+                    "query": `mutation ConfigurePlugin($plugin_id: ID!, $input: Map!) {
+                        configurePlugin(plugin_id: $plugin_id, input: $input)
+                      }`
+                };
+                return this.callGQL(reqData);
+            }
             matchUrl(location, fragment) {
                 const regexp = concatRegexp(new RegExp(location.origin), fragment);
                 this.log.debug(regexp, location.href.match(regexp));
