@@ -1,0 +1,38 @@
+name: Stash Stashbox Scene Count
+# requires: stashUserscriptLibrary7dJx1qP
+description: Adds stashbox scene counts to performers and studios
+version: 0.1.0
+ui:
+  requires: 
+  - stashUserscriptLibrary7dJx1qP
+  javascript:
+  - stashStashboxSceneCount.js
+settings:
+  performers:
+    displayName: Display scene count on performers page
+    type: BOOLEAN
+  studios:
+    displayName: Display scene count on studios page
+    type: BOOLEAN
+  includeSubsidiaryStudios:
+    displayName: Include subsidiary studios
+    type: BOOLEAN
+exec:
+  - python
+  - "{pluginDir}/stashStashboxSceneCount.py"
+interface: raw
+tasks:
+  - name: Get Stashbox Performer Scene Count
+    description: Gets stashbox performer scene count
+    defaultArgs:
+      name: stashbox_performer_scene_count
+      endpoint: null
+      api_key: null
+      stash_id: null
+  - name: Get Stashbox Studio Scene Count
+    description: Gets stashbox studio scene count
+    defaultArgs:
+      name: stashbox_studio_scene_count
+      endpoint: null
+      api_key: null
+      stash_id: null

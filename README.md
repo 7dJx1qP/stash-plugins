@@ -146,6 +146,16 @@ Sync Stashbox favorite performers whenever a stash performer is favorited or unf
 
 ![Performers page](images/Stash%20Set%20Stashbox%20Favorite%20Performers/performers-page.png?raw=true "Performers page")
 
+### Stash Stashbox Scene Count
+
+Adds stashbox scene counts to performers and studios
+
+#### Requirements
+
+* Python 3.9+
+* Requests (https://pypi.org/project/requests/)
+* PyStashLib (https://pypi.org/project/pystashlib/)
+
 ### Stash StashID Icon
 
 Adds checkmark icon to performer and studio cards that have a stashid
