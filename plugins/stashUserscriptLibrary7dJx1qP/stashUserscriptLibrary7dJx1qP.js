@@ -169,8 +169,9 @@
                 this.log = new Logger(logging);
                 this._pageUrlCheckInterval = pageUrlCheckInterval;
                 this.fireOnHashChangesToo = true;
+                this.lastLocationEvents = [];
                 this.pageURLCheckTimer = setInterval(() => {
-                    // Loop every 500ms
+                    // Loop every 50ms
                     if (this.lastPathStr !== location.pathname || this.lastQueryStr !== location.search || (this.fireOnHashChangesToo && this.lastHashStr !== location.hash)) {
                         this.lastPathStr = location.pathname;
                         this.lastQueryStr = location.search;
@@ -383,96 +384,112 @@
             get serverUrl() {
                 return window.location.origin;
             }
+            dispatchLocationEvent(evt) {
+                this.dispatchEvent(evt);
+                this.lastLocationEvents.push(evt);
+            }
+            addEventListener(eventName, handler) {
+                super.addEventListener(eventName, handler);
+                // ensures that late loading plugin script handlers do not miss the initial location event dispatch
+                if (eventName.startsWith('page:')) {
+                    for (const evt of this.lastLocationEvents) {
+                        if (evt.type === eventName) {
+                            handler(evt);
+                        }
+                    }
+                }
+            }
             gmMain() {
                 const location = window.location;
                 this.log.debug(URL, window.location);
+                this.lastLocationEvents = [];
 
                 // marker wall
                 if (this.matchUrl(location, /\/scenes\/markers/)) {
                     this.log.debug('[Navigation] Wall-Markers Page');
-                    this.dispatchEvent(new Event('page:markers'));
+                    this.dispatchLocationEvent(new Event('page:markers'));
                 }
                 // scene page
                 else if (this.matchUrl(location, /\/scenes\/\d+/)) {
                     this.log.debug('[Navigation] Scene Page');
-                    this.dispatchEvent(new Event('page:scene'));
+                    this.dispatchLocationEvent(new Event('page:scene'));
                 }
                 // scenes wall
                 else if (this.matchUrl(location, /\/scenes\?/)) {
                     this.log.debug('[Navigation] Wall-Scene Page');
                     this.processTagger();
-                    this.dispatchEvent(new Event('page:scenes'));
+                    this.dispatchLocationEvent(new Event('page:scenes'));
                 }
 
                 // images wall
                 if (this.matchUrl(location, /\/images\?/)) {
                     this.log.debug('[Navigation] Wall-Images Page');
-                    this.dispatchEvent(new Event('page:images'));
+                    this.dispatchLocationEvent(new Event('page:images'));
                 }
                 // image page
                 if (this.matchUrl(location, /\/images\/\d+/)) {
                     this.log.debug('[Navigation] Image Page');
-                    this.dispatchEvent(new Event('page:image'));
+                    this.dispatchLocationEvent(new Event('page:image'));
                 }
 
                 // movie scenes page
                 else if (this.matchUrl(location, /\/movies\/\d+\?/)) {
                     this.log.debug('[Navigation] Movie Page - Scenes');
                     this.processTagger();
-                    this.dispatchEvent(new Event('page:movie:scenes'));
+                    this.dispatchLocationEvent(new Event('page:movie:scenes'));
                 }
                 // movie page
                 else if (this.matchUrl(location, /\/movies\/\d+/)) {
                     this.log.debug('[Navigation] Movie Page');
-                    this.dispatchEvent(new Event('page:movie'));
+                    this.dispatchLocationEvent(new Event('page:movie'));
                 }
                 // movies wall
                 else if (this.matchUrl(location, /\/movies\?/)) {
                     this.log.debug('[Navigation] Wall-Movies Page');
-                    this.dispatchEvent(new Event('page:movies'));
+                    this.dispatchLocationEvent(new Event('page:movies'));
                 }
 
                 // galleries wall
                 if (this.matchUrl(location, /\/galleries\?/)) {
                     this.log.debug('[Navigation] Wall-Galleries Page');
-                    this.dispatchEvent(new Event('page:galleries'));
+                    this.dispatchLocationEvent(new Event('page:galleries'));
                 }
                 // gallery page
                 if (this.matchUrl(location, /\/galleries\/\d+/)) {
                     this.log.debug('[Navigation] Gallery Page');
-                    this.dispatchEvent(new Event('page:gallery'));
+                    this.dispatchLocationEvent(new Event('page:gallery'));
                 }
 
                 // performer scenes page
                 if (this.matchUrl(location, /\/performers\/\d+\/scenes/)) {
                     this.log.debug('[Navigation] Performer Page - Scenes');
                     this.processTagger();
-                    this.dispatchEvent(new Event('page:performer:scenes'));
+                    this.dispatchLocationEvent(new Event('page:performer:scenes'));
                 }
                 // performer galleries page
                 else if (this.matchUrl(location, /\/performers\/\d+\/galleries/)) {
                     this.log.debug('[Navigation] Performer Page - Galleries');
-                    this.dispatchEvent(new Event('page:performer:galleries'));
+                    this.dispatchLocationEvent(new Event('page:performer:galleries'));
                 }
                 // performer movies page
                 else if (this.matchUrl(location, /\/performers\/\d+\/movies/)) {
                     this.log.debug('[Navigation] Performer Page - Movies');
-                    this.dispatchEvent(new Event('page:performer:movies'));
+                    this.dispatchLocationEvent(new Event('page:performer:movies'));
                 }
                 // performer appears with page
                 else if (this.matchUrl(location, /\/performers\/\d+\/appearswith/)) {
                     this.log.debug('[Navigation] Performer Page - Appears With');
-                    this.dispatchEvent(new Event('page:performer:appearswith'));
+                    this.dispatchLocationEvent(new Event('page:performer:appearswith'));
                 }
                 // performer page
                 else if (this.matchUrl(location, /\/performers\/\d+/)) {
                     this.log.debug('[Navigation] Performers Page');
-                    this.dispatchEvent(new Event('page:performer'));
+                    this.dispatchLocationEvent(new Event('page:performer'));
                 }
                 // performer any page
                 if (this.matchUrl(location, /\/performers\/\d+/)) {
                     this.log.debug('[Navigation] Performer Page - Any');
-                    this.dispatchEvent(new Event('page:performer:any'));
+                    this.dispatchLocationEvent(new Event('page:performer:any'));
 
                     waitForElementClass('detail-header', (className, targetNode) => {
                         const observerOptions = {
@@ -496,16 +513,16 @@
                                 }
                             });
                             if (isEdit) {
-                                this.dispatchEvent(new Event('page:performer:edit'));
+                                this.dispatchLocationEvent(new Event('page:performer:edit'));
                             }
                             else {
-                                this.dispatchEvent(new Event('page:performer:details'));
+                                this.dispatchLocationEvent(new Event('page:performer:details'));
                             }
                             if (isCollapsed) {
-                                this.dispatchEvent(new Event('page:performer:details:collapsed'));
+                                this.dispatchLocationEvent(new Event('page:performer:details:collapsed'));
                             }
                             else {
-                                this.dispatchEvent(new Event('page:performer:details:expanded'));
+                                this.dispatchLocationEvent(new Event('page:performer:details:expanded'));
                             }
                         });
                         observer.observe(targetNode[0], observerOptions);
@@ -514,49 +531,49 @@
                 // performers wall
                 else if (this.matchUrl(location, /\/performers\?/)) {
                     this.log.debug('[Navigation] Wall-Performers Page');
-                    this.dispatchEvent(new Event('page:performers'));
+                    this.dispatchLocationEvent(new Event('page:performers'));
                 }
 
                 // studio galleries page
                 if (this.matchUrl(location, /\/studios\/\d+\/galleries/)) {
                     this.log.debug('[Navigation] Studio Page - Galleries');
-                    this.dispatchEvent(new Event('page:studio:galleries'));
+                    this.dispatchLocationEvent(new Event('page:studio:galleries'));
                 }
                 // studio images page
                 else if (this.matchUrl(location, /\/studios\/\d+\/images/)) {
                     this.log.debug('[Navigation] Studio Page - Images');
-                    this.dispatchEvent(new Event('page:studio:images'));
+                    this.dispatchLocationEvent(new Event('page:studio:images'));
                 }
                 // studio performers page
                 else if (this.matchUrl(location, /\/studios\/\d+\/performers/)) {
                     this.log.debug('[Navigation] Studio Page - Performers');
-                    this.dispatchEvent(new Event('page:studio:performers'));
+                    this.dispatchLocationEvent(new Event('page:studio:performers'));
                 }
                 // studio movies page
                 else if (this.matchUrl(location, /\/studios\/\d+\/movies/)) {
                     this.log.debug('[Navigation] Studio Page - Movies');
-                    this.dispatchEvent(new Event('page:studio:movies'));
+                    this.dispatchLocationEvent(new Event('page:studio:movies'));
                 }
                 // studio childstudios page
                 else if (this.matchUrl(location, /\/studios\/\d+\/childstudios/)) {
                     this.log.debug('[Navigation] Studio Page - Child Studios');
-                    this.dispatchEvent(new Event('page:studio:childstudios'));
+                    this.dispatchLocationEvent(new Event('page:studio:childstudios'));
                 }
                 // studio scenes page
                 else if (this.matchUrl(location, /\/studios\/\d+\?/)) {
                     this.log.debug('[Navigation] Studio Page - Scenes');
                     this.processTagger();
-                    this.dispatchEvent(new Event('page:studio:scenes'));
+                    this.dispatchLocationEvent(new Event('page:studio:scenes'));
                 }
                 // studio page
                 else if (this.matchUrl(location, /\/studios\/\d+/)) {
                     this.log.debug('[Navigation] Studio Page');
-                    this.dispatchEvent(new Event('page:studio'));
+                    this.dispatchLocationEvent(new Event('page:studio'));
                 }
                 // studio any page
                 if (this.matchUrl(location, /\/studios\/\d+/)) {
                     this.log.debug('[Navigation] Studio Page - Any');
-                    this.dispatchEvent(new Event('page:studio:any'));
+                    this.dispatchLocationEvent(new Event('page:studio:any'));
 
                     waitForElementClass('detail-header', (className, targetNode) => {
                         const observerOptions = {
@@ -580,16 +597,16 @@
                                 }
                             });
                             if (isEdit) {
-                                this.dispatchEvent(new Event('page:studio:edit'));
+                                this.dispatchLocationEvent(new Event('page:studio:edit'));
                             }
                             else {
-                                this.dispatchEvent(new Event('page:studio:details'));
+                                this.dispatchLocationEvent(new Event('page:studio:details'));
                             }
                             if (isCollapsed) {
-                                this.dispatchEvent(new Event('page:studio:details:collapsed'));
+                                this.dispatchLocationEvent(new Event('page:studio:details:collapsed'));
                             }
                             else {
-                                this.dispatchEvent(new Event('page:studio:details:expanded'));
+                                this.dispatchLocationEvent(new Event('page:studio:details:expanded'));
                             }
                         });
                         observer.observe(targetNode[0], observerOptions);
@@ -598,73 +615,73 @@
                 // studios wall
                 else if (this.matchUrl(location, /\/studios\?/)) {
                     this.log.debug('[Navigation] Wall-Studios Page');
-                    this.dispatchEvent(new Event('page:studios'));
+                    this.dispatchLocationEvent(new Event('page:studios'));
                 }
 
                 // tag galleries page
                 if (this.matchUrl(location, /\/tags\/\d+\/galleries/)) {
                     this.log.debug('[Navigation] Tag Page - Galleries');
-                    this.dispatchEvent(new Event('page:tag:galleries'));
+                    this.dispatchLocationEvent(new Event('page:tag:galleries'));
                 }
                 // tag images page
                 else if (this.matchUrl(location, /\/tags\/\d+\/images/)) {
                     this.log.debug('[Navigation] Tag Page - Images');
-                    this.dispatchEvent(new Event('page:tag:images'));
+                    this.dispatchLocationEvent(new Event('page:tag:images'));
                 }
                 // tag markers page
                 else if (this.matchUrl(location, /\/tags\/\d+\/markers/)) {
                     this.log.debug('[Navigation] Tag Page - Markers');
-                    this.dispatchEvent(new Event('page:tag:markers'));
+                    this.dispatchLocationEvent(new Event('page:tag:markers'));
                 }
                 // tag performers page
                 else if (this.matchUrl(location, /\/tags\/\d+\/performers/)) {
                     this.log.debug('[Navigation] Tag Page - Performers');
-                    this.dispatchEvent(new Event('page:tag:performers'));
+                    this.dispatchLocationEvent(new Event('page:tag:performers'));
                 }
                 // tag scenes page
                 else if (this.matchUrl(location, /\/tags\/\d+\?/)) {
                     this.log.debug('[Navigation] Tag Page - Scenes');
                     this.processTagger();
-                    this.dispatchEvent(new Event('page:tag:scenes'));
+                    this.dispatchLocationEvent(new Event('page:tag:scenes'));
                 }
                 // tag page
                 else if (this.matchUrl(location, /\/tags\/\d+/)) {
                     this.log.debug('[Navigation] Tag Page');
-                    this.dispatchEvent(new Event('page:tag'));
+                    this.dispatchLocationEvent(new Event('page:tag'));
                 }
                 // tags any page
                 if (this.matchUrl(location, /\/tags\/\d+/)) {
                     this.log.debug('[Navigation] Tag Page - Any');
-                    this.dispatchEvent(new Event('page:tag:any'));
+                    this.dispatchLocationEvent(new Event('page:tag:any'));
                 }
                 // tags wall
                 else if (this.matchUrl(location, /\/tags\?/)) {
                     this.log.debug('[Navigation] Wall-Tags Page');
-                    this.dispatchEvent(new Event('page:tags'));
+                    this.dispatchLocationEvent(new Event('page:tags'));
                 }
 
                 // settings page tasks tab
                 if (this.matchUrl(location, /\/settings\?tab=tasks/)) {
                     this.log.debug('[Navigation] Settings Page Tasks Tab');
-                    this.dispatchEvent(new Event('page:settings:tasks'));
+                    this.dispatchLocationEvent(new Event('page:settings:tasks'));
                     this.hidePluginTasks();
                 }
                 // settings page system tab
                 else if (this.matchUrl(location, /\/settings\?tab=system/)) {
                     this.log.debug('[Navigation] Settings Page System Tab');
-                    this.dispatchEvent(new Event('page:settings:system'));
+                    this.dispatchLocationEvent(new Event('page:settings:system'));
                 }
                 // settings page (defaults to tasks tab)
                 else if (this.matchUrl(location, /\/settings/)) {
                     this.log.debug('[Navigation] Settings Page Tasks Tab');
-                    this.dispatchEvent(new Event('page:settings:tasks'));
+                    this.dispatchLocationEvent(new Event('page:settings:tasks'));
                     this.hidePluginTasks();
                 }
 
                 // stats page
                 if (this.matchUrl(location, /\/stats/)) {
                     this.log.debug('[Navigation] Stats Page');
-                    this.dispatchEvent(new Event('page:stats'));
+                    this.dispatchLocationEvent(new Event('page:stats'));
                 }
             }
             hidePluginTasks () {
