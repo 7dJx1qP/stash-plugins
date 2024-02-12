@@ -1,0 +1,35 @@
+name: Stash Performer Custom Fields
+# requires: stashUserscriptLibrary
+description: Adds custom fields to performers that are stored in performer details as JSON.
+version: 0.2.0
+ui:
+  requires: 
+  - stashUserscriptLibrary7dJx1qP
+  javascript:
+  - stashPerformerCustomFields.js
+exec:
+  - python
+  - "{pluginDir}/stashPerformerCustomFields.py"
+interface: raw
+tasks:
+  - name: Open in File Explorer
+    description: Open file explorer
+    defaultArgs:
+      name: explorer
+      path: null
+  - name: Migrate Performer Details
+    description: Runs backup task then converts all performer details data to JSON. This task modifies your performer details data.
+    defaultArgs:
+      name: init_all_performer_details
+hooks:
+  - name: Inititialize Performer On Create
+    description: Add custom fields to performer details data on create
+    triggeredBy: 
+      - Performer.Create.Post
+settings:
+  fields:
+    displayName: Fields
+    type: STRING
+  showEdit:
+    displayName: Show Edit
+    type: BOOLEAN

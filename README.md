@@ -73,6 +73,19 @@ Adds a button to the performers page to check for duplicate performer urls. Task
 
 ![Performers page](images/Stash%20Performer%20Audit%20Task%20Button/performers-page.png?raw=true "Performers page")
 
+### Stash Performer Custom Fields
+
+Adds custom fields to performers that are stored in performer details as JSON.
+
+**[VIEW DOCUMENTATION](plugins/stashPerformerCustomFields/README.md)**
+
+**Note: Make sure you fully understand how this plugin will affect your performer details data before attempting to use it.**
+
+#### Requirements
+
+* Python 3.9+
+* PyStashLib (https://pypi.org/project/pystashlib/)
+
 ### Stash Performer Image Cropper
 
 Adds ability to crop performer image from performer page
