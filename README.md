@@ -69,6 +69,7 @@ Adds a button to the performers page to check for duplicate performer urls. Task
 #### Requirements
 
 * Python 3.9+
+* Requests (https://pypi.org/project/requests/)
 * PyStashLib (https://pypi.org/project/pystashlib/)
 
 ![Performers page](images/Stash%20Performer%20Audit%20Task%20Button/performers-page.png?raw=true "Performers page")
@@ -84,6 +85,7 @@ Adds custom fields to performers that are stored in performer details as JSON.
 #### Requirements
 
 * Python 3.9+
+* Requests (https://pypi.org/project/requests/)
 * PyStashLib (https://pypi.org/project/pystashlib/)
 
 ### Stash Performer Image Cropper

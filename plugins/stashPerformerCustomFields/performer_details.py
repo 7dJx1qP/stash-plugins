@@ -1,10 +1,12 @@
 import json
-import math
-import yaml
-from tqdm import tqdm
-from stashlib.logger import logger as log
-from stashlib.stash_database import StashDatabase
-from stashlib.stash_models import PerformersRow
+import sys
+try:
+    from stashlib.logger import logger as log
+    from stashlib.stash_database import StashDatabase
+    from stashlib.stash_models import PerformersRow
+except ModuleNotFoundError:
+    print("If you have pip (normally installed with python), run this command in a terminal (cmd): pip install pystashlib)", file=sys.stderr)
+    sys.exit()
 
 def update_performer_details(db: StashDatabase, performer_id: int, details, commit=True):
     encoded_details = json.dumps(details, ensure_ascii=False)
