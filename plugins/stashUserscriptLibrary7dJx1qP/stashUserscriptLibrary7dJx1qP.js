@@ -862,6 +862,9 @@
             processScene(data) {
                 if (data.data.findScene) {
                     this.scenes[data.data.findScene.id] = data.data.findScene;
+                    for (const performer of data.data.findScene.performers) {
+                        this.performers[performer.id] = performer;
+                    }
                 }
             }
             processScenes(data) {

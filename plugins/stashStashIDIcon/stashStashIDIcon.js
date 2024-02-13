@@ -87,7 +87,7 @@
             const sceneId = window.location.pathname.split('/').pop();
             const performerDatas = {};
             for (const performerData of stash.scenes[sceneId].performers) {
-                performerDatas[performerData.id] = performerData;
+                performerDatas[performerData.id] = stash.performers[performerData.id];
             }
             addPerformerStashIDIcons(performerDatas);
             if (stash.scenes[sceneId].studio) {
