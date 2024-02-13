@@ -8,9 +8,15 @@
         waitForElementClass,
         waitForElementByXpath,
         getElementByXpath,
+        insertAfter,
         getClosestAncestor,
+        createElementFromHTML,
         updateTextInput,
     } = window.stash7dJx1qP;
+
+    document.body.appendChild(document.createElement('style')).textContent = `
+    .stash-id-pill span.stashbox-scene-count { border-radius: .25rem; background-color: #394b59; }
+    `;
 
     async function runGetStashboxPerformerSceneCountTask(endpoint, api_key, stashId) {
         if (endpoint !== 'https://stashdb.org/graphql') return;
@@ -149,8 +155,8 @@
                 const stashBoxSceneCount = await stash.pollLogsForMessage(`[Plugin / Stash Stashbox Scene Count] ${stash_id}: `);
                 const el = getElementByXpath(`//span[@class='stash-id-pill']/a[text()='${stash_id}']`);
                 if (el) {
-                    //el.innerText = `${stash_id} ${sceneCount}/${stashBoxSceneCount}`;
-                    el.innerText = `${stash_id} ${stashBoxSceneCount}`;
+                    const badge = createElementFromHTML(`<span class="stashbox-scene-count ml-1">${stashBoxSceneCount}</span>`);
+                    insertAfter(badge, el);
                 }
             }
         }
@@ -170,8 +176,8 @@
                 const stashBoxSceneCount = await stash.pollLogsForMessage(`[Plugin / Stash Stashbox Scene Count] ${stash_id}: `);
                 const el = getElementByXpath(`//span[@class='stash-id-pill']/a[text()='${stash_id}']`);
                 if (el) {
-                    //el.innerText = `${stash_id} ${sceneCount}/${stashBoxSceneCount}`;
-                    el.innerText = `${stash_id} ${stashBoxSceneCount}`;
+                    const badge = createElementFromHTML(`<span class="stashbox-scene-count ml-1">${stashBoxSceneCount}</span>`);
+                    insertAfter(badge, el);
                 }
             }
         }
