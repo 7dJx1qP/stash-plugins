@@ -1,7 +1,7 @@
 name: Stash Stashbox Scene Count
 # requires: stashUserscriptLibrary7dJx1qP
 description: Adds stashbox scene counts to performers and studios
-version: 0.3.0
+version: 0.3.1
 ui:
   requires: 
   - stashUserscriptLibrary7dJx1qP

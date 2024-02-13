@@ -150,13 +150,15 @@
             const performer = await getPerformer();
             const data = await stash.getStashBoxes();
             for (const { endpoint, stash_id } of performer.stash_ids.filter(o => endpoints.indexOf(o.endpoint) !== -1)) {
-                const api_key = data.data.configuration.general.stashBoxes.find(o => o.endpoint = endpoint).api_key;
-                await runGetStashboxPerformerSceneCountTask(endpoint, api_key, stash_id);
-                const stashBoxSceneCount = await stash.pollLogsForMessage(`[Plugin / Stash Stashbox Scene Count] ${stash_id}: `);
                 const el = getElementByXpath(`//span[@class='stash-id-pill']/a[text()='${stash_id}']`);
-                if (el) {
-                    const badge = createElementFromHTML(`<span class="stashbox-scene-count ml-1">${stashBoxSceneCount}</span>`);
+                if (el && !el.parentElement.querySelector('.stashbox-scene-count')) {
+                    const badge = createElementFromHTML(`<span class="stashbox-scene-count ml-1" style="display: none;"></span>`);
                     insertAfter(badge, el);
+                    const api_key = data.data.configuration.general.stashBoxes.find(o => o.endpoint = endpoint).api_key;
+                    await runGetStashboxPerformerSceneCountTask(endpoint, api_key, stash_id);
+                    const stashBoxSceneCount = await stash.pollLogsForMessage(`[Plugin / Stash Stashbox Scene Count] ${stash_id}: `);
+                    badge.innerText = stashBoxSceneCount;
+                    badge.style.display = 'inline-block';
                 }
             }
         }
@@ -171,13 +173,15 @@
             const studio = await getStudio();
             const data = await stash.getStashBoxes();
             for (const { endpoint, stash_id } of studio.stash_ids.filter(o => endpoints.indexOf(o.endpoint) !== -1)) {
-                const api_key = data.data.configuration.general.stashBoxes.find(o => o.endpoint = endpoint).api_key;
-                await runGetStashboxStudioSceneCountTask(endpoint, api_key, stash_id);
-                const stashBoxSceneCount = await stash.pollLogsForMessage(`[Plugin / Stash Stashbox Scene Count] ${stash_id}: `);
                 const el = getElementByXpath(`//span[@class='stash-id-pill']/a[text()='${stash_id}']`);
-                if (el) {
-                    const badge = createElementFromHTML(`<span class="stashbox-scene-count ml-1">${stashBoxSceneCount}</span>`);
+                if (el && !el.parentElement.querySelector('.stashbox-scene-count')) {
+                    const badge = createElementFromHTML(`<span class="stashbox-scene-count ml-1" style="display: none;"></span>`);
                     insertAfter(badge, el);
+                    const api_key = data.data.configuration.general.stashBoxes.find(o => o.endpoint = endpoint).api_key;
+                    await runGetStashboxStudioSceneCountTask(endpoint, api_key, stash_id);
+                    const stashBoxSceneCount = await stash.pollLogsForMessage(`[Plugin / Stash Stashbox Scene Count] ${stash_id}: `);
+                    badge.innerText = stashBoxSceneCount;
+                    badge.style.display = 'inline-block';
                 }
             }
         }
