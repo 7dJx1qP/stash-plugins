@@ -180,7 +180,7 @@ Adds input textboxes to performer detail and studio detail pages for stashid ent
 
 ### Stash Stats
 
-Adds new stats to the stats page: marker count, favorite performer count, studios with stashid %, performers with stashid %, scenes with stashid %
+Adds new stats to the stats page: marker count, favorite performer count, studios with stashid %, performers with stashid %, scenes with stashid %, tags with images %, movies with covers %, studios with images %, performers with images %, hd scenes %
 
 ![Stats page](images/Stash%20Stats/stats-page.png?raw=true "Stats page")
 
