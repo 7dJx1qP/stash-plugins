@@ -1,7 +1,5 @@
 import json
 import log
-import os
-import pathlib
 import sys
 from audit_performer_urls import audit_performer_urls
 try:
@@ -13,8 +11,6 @@ except ModuleNotFoundError:
 
 json_input = json.loads(sys.stdin.read())
 name = json_input['args']['name']
-
-configpath = os.path.join(pathlib.Path(__file__).parent.resolve(), 'config.ini')
 
 def get_database_config():
     client = StashInterface(json_input["server_connection"])
