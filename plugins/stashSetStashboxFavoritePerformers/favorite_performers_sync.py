@@ -154,7 +154,7 @@ WHERE b.stash_id = ?""", (stash_id, ))
         else:
             log.debug(f'Performer already tagged {stash_id} {performer.id} {performer.name}')
 
-def set_stashbox_favorite_performers(db: StashDatabase, endpoint: str, boxapi_key: str, tagErrors: bool, tagName: str):
+def set_stashbox_favorite_performers(db: StashDatabase, endpoint: str, boxapi_key: str, tag_errors: bool, tag_name: str):
     stash_ids = set([row["stash_id"] for row in db.fetchall("""SELECT DISTINCT b.stash_id
 FROM performers a
 JOIN performer_stash_ids b
@@ -163,13 +163,13 @@ WHERE a.favorite = 1""")])
     log.info(f'Stashbox endpoint {endpoint}')
     log.info(f'Stash {len(stash_ids)} favorite performers')
     tag = None
-    if tagErrors and tagName:
-        log.info(f'Tagging errors with performer tag: {tagName}')
-        tag = db.tags.selectone_name(tagName)
+    if tag_errors and tag_name:
+        log.info(f'Tagging errors with performer tag: {tag_name}')
+        tag = db.tags.selectone_name(tag_name)
         if not tag:
             log.info(f'Tag missing. Creating...')
-            db.tags.insert(tagName, get_timestamp(), get_timestamp(), True, 'Tag created by Set Stashbox Favorite Performers plugin. Applied to performers found to have stash ids deleted from stashbox.', None)
-            tag = db.tags.selectone_name(tagName)
+            db.tags.insert(tag_name, get_timestamp(), get_timestamp(), True, 'Tag created by Set Stashbox Favorite Performers plugin. Applied to performers found to have stash ids deleted from stashbox.', None)
+            tag = db.tags.selectone_name(tag_name)
             if not tag:
                 log.error(f"Failed to create tag.")
     else:
