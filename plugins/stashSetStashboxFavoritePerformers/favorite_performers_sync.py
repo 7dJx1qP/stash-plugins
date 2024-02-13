@@ -130,7 +130,7 @@ query Performers($input: PerformerQueryInput!) {
             max_request_count = math.ceil(total_count / per_page)
 
         log.info(f'Received page {variables["input"]["page"] - 1} of {max_request_count}')
-        log.progress((variables["input"]["page"] - 1) / max_request_count)
+        log.progress(((variables["input"]["page"] - 1) / max_request_count) * 0.5)
         for performer in query_performers.get("performers"):
             performer_id = performer['id']
             if performer_id not in performercounts:
@@ -180,17 +180,24 @@ WHERE a.favorite = 1""")])
 
     favorites_to_add = stash_ids - stashbox_stash_ids
     favorites_to_remove = stashbox_stash_ids - stash_ids
+    dupes_to_remove = [[performer_id, count] for [performer_id, count] in performercounts.items() if count > 1]
     log.info(f'{len(favorites_to_add)} favorites to add')
     log.info(f'{len(favorites_to_remove)} favorites to remove')
+    log.info(f'{len(dupes_to_remove)} duplicates to remove')
+    total_work = len(favorites_to_add) + len(favorites_to_remove) + len(dupes_to_remove)
 
+    i = 0
     for stash_id in favorites_to_add:
         log.trace(f'Adding stashbox favorite {stash_id}')
         if not update_stashbox_performer_favorite(endpoint, boxapi_key, stash_id, True).get('favoritePerformer'):
             log.warning(f'Failed adding stashbox favorite {stash_id}')
             if tag:
                 tag_performer(db, stash_id, tag.id)
+        i += 1
+        log.progress((i / total_work) * 0.5 + 0.5)
     log.info('Add done.')
 
+    i = 0
     for stash_id in favorites_to_remove:
         log.trace(f'Removing stashbox favorite {stash_id}')
         update_stashbox_performer_favorite(endpoint, boxapi_key, stash_id, False)
@@ -198,14 +205,19 @@ WHERE a.favorite = 1""")])
             log.warning(f'Failed removing stashbox favorite {stash_id}')
             if tag:
                 tag_performer(db, stash_id, tag.id)
+        i += 1
+        log.progress((i / total_work) * 0.5 + 0.5)
     log.info('Remove done.')
 
-    for performer_id, count in performercounts.items():
-        if count > 1:
-            log.trace(f'Fixing duplicate stashbox favorite {performer_id} count={count}')
-            update_stashbox_performer_favorite(endpoint, boxapi_key, performer_id, False)
-            update_stashbox_performer_favorite(endpoint, boxapi_key, performer_id, True)
+    i = 0
+    for performer_id, count in dupes_to_remove:
+        log.trace(f'Fixing duplicate stashbox favorite {performer_id} count={count}')
+        update_stashbox_performer_favorite(endpoint, boxapi_key, performer_id, False)
+        update_stashbox_performer_favorite(endpoint, boxapi_key, performer_id, True)
+        i += 1
+        log.progress((i / total_work) * 0.5 + 0.5)
     log.info('Fixed duplicates.')
+    log.progress(1)
 
 def set_stashbox_favorite_performer(endpoint, boxapi_key, stash_id, favorite):
     result = get_stashbox_performer_favorite(endpoint, boxapi_key, stash_id)
