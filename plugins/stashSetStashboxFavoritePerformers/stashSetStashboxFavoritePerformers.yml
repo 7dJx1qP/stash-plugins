@@ -1,7 +1,7 @@
 name: Stash Set Stashbox Favorite Performers
 # requires: stashUserscriptLibrary7dJx1qP
 description: Set Stashbox favorite performers according to stash favorites
-version: 0.4.0
+version: 0.5.0
 url: https://github.com/7dJx1qP/stash-plugins#stash-set-stashbox-favorite-performers
 ui:
   requires: 
@@ -12,6 +12,12 @@ settings:
   performerPageButton:
     displayName: Display set stashbox favorites button on performers page
     type: BOOLEAN
+  tagErrors:
+    displayName: Tag performers with invalid stashids
+    type: BOOLEAN
+  tagName:
+    displayName: Invalid stashid performer tag name
+    type: STRING
 exec:
   - python
   - "{pluginDir}/stashSetStashboxFavoritePerformers.py"

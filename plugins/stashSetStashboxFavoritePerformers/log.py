@@ -37,3 +37,8 @@ def warning(s):
 
 def error(s):
     __log(b'e', s)
+
+
+def progress(p):
+    progress = min(max(0, p), 1)
+    __log(b'p', str(progress))

@@ -14,16 +14,19 @@ except ModuleNotFoundError:
 json_input = json.loads(sys.stdin.read())
 name = json_input['args']['name']
 
-configpath = os.path.join(pathlib.Path(__file__).parent.resolve(), 'config.ini')
+client = StashInterface(json_input["server_connection"])
 
 def get_database_config():
-    client = StashInterface(json_input["server_connection"])
     result = client.callGraphQL("""query Configuration { configuration { general { databasePath, blobsPath, blobsStorage } } }""")
     database_path = result["configuration"]["general"]["databasePath"]
     blobs_path = result["configuration"]["general"]["blobsPath"]
     blobs_storage = result["configuration"]["general"]["blobsStorage"]
     log.debug(f"databasePath: {database_path}")
     return database_path, blobs_path, blobs_storage
+
+pluginSettings = client.callGraphQL("""query Configuration { configuration { plugins } }""")['configuration']['plugins'].get('stashSetStashboxFavoritePerformers', {})
+tagErrors = pluginSettings.get('tagErrors', False)
+tagName = pluginSettings.get('tagName')
 
 if name == 'favorite_performers_sync':
     endpoint = json_input['args']['endpoint']
@@ -33,7 +36,7 @@ if name == 'favorite_performers_sync':
     except Exception as e:
         log.error(str(e))
         sys.exit(0)
-    set_stashbox_favorite_performers(db, endpoint, api_key)
+    set_stashbox_favorite_performers(db, endpoint, api_key, tagErrors, tagName)
     db.close()
 elif name == 'favorite_performer_sync':
     endpoint = json_input['args']['endpoint']
