@@ -10,8 +10,6 @@
         getElementByXpath,
     } = window.stash7dJx1qP;
 
-    stash.visiblePluginTasks.push('Audit performer urls');
-
     stash.addEventListener('page:performers', function () {
         waitForElementClass("btn-toolbar", async () => {
             if (!document.getElementById('audit-task')) {

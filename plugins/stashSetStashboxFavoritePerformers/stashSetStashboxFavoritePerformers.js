@@ -12,11 +12,6 @@
         updateTextInput,
     } = window.stash7dJx1qP;
 
-    const MIN_REQUIRED_PLUGIN_VERSION = '0.6.0';
-
-    const TASK_NAME = 'Set Stashbox Favorite Performers';
-    stash.visiblePluginTasks.push(TASK_NAME);
-
     async function runSetStashBoxFavoritePerformersTask() {
         const data = await stash.getStashBoxes();
         if (!data.data.configuration.general.stashBoxes.length) {
@@ -83,7 +78,7 @@
 
     stash.addEventListener('stash:plugin:task', async function (evt) {
         const { taskName, task } = evt.detail;
-        if (taskName === TASK_NAME) {
+        if (taskName === 'Set Stashbox Favorite Performers') {
             const taskButton = task.querySelector('button');
             if (!taskButton.classList.contains('hooked')) {
                 taskButton.classList.add('hooked');
