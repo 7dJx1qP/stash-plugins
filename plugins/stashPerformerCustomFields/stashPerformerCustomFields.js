@@ -286,4 +286,6 @@
     }
     stash.addEventListener('page:performer:any', performerPageHandler);
     stash.addEventListener('page:performer:details', performerPageHandler);
+
+    stash.registerHiddenPluginTask('Stash Performer Custom Fields', 'Open in File Explorer');
 })();

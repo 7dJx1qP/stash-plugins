@@ -91,4 +91,6 @@
         }
     });
 
+    stash.registerHiddenPluginTask('Stash Set Stashbox Favorite Performers', 'Set Stashbox Favorite Performer');
+
 })();

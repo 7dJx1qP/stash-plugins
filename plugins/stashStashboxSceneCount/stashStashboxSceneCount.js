@@ -179,4 +179,6 @@
     stash.addEventListener('page:studio:any', studioPageHandler);
     stash.addEventListener('page:studio:details:expanded', studioPageHandler);
 
+    stash.registerHiddenPluginTask('Stash Stashbox Scene Count');
+
 })();

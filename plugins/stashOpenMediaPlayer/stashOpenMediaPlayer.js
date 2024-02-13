@@ -31,4 +31,6 @@
             }
         });
     });
+
+    stash.registerHiddenPluginTask('Stash Open Media Player');
 })();

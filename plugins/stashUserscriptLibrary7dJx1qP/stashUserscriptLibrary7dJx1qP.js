@@ -71,6 +71,18 @@
             }, time);
         }
 
+        function waitForElementsByXpath(xpath, callBack, time) {
+            time = (typeof time !== 'undefined') ? time : 100;
+            window.setTimeout(() => {
+                const element = getElementsByXpath(xpath);
+                if (element) {
+                    callBack(xpath, element);
+                } else {
+                    waitForElementsByXpath(xpath, callBack);
+                }
+            }, time);
+        }
+
         function getElementByXpath(xpath, contextNode) {
             return document.evaluate(xpath, contextNode || document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
         }
@@ -204,7 +216,7 @@
                 this.getVersion();
                 this.pluginVersion = null;
                 this.getPlugins().then(plugins => this.getPluginVersion(plugins));
-                this.visiblePluginTasks = ['Userscript Functions'];
+                this.hiddenPluginTasks = [];
                 this.settingsCallbacks = [];
                 this.settingsId = 'userscript-settings';
                 this.remoteScenes = {};
@@ -697,15 +709,33 @@
                 }
             }
             hidePluginTasks () {
-                // hide userscript functions plugin tasks
-                waitForElementByXpath("//div[@id='tasks-panel']//h3[text()='Userscript Functions']/ancestor::div[contains(@class, 'setting-group')]", (elementId, el) => {
-                    const tasks = el.querySelectorAll('.setting');
-                    for (const task of tasks) {
-                        const taskName = task.querySelector('h3').innerText;
-                        task.classList.add(this.visiblePluginTasks.indexOf(taskName) === -1 ? 'd-none' : 'd-flex');
-                        this.dispatchEvent(new CustomEvent('stash:plugin:task', { 'detail': { taskName, task } }));
+                waitForElementsByXpath("//div[@id='tasks-panel']//h1[text()='Plugin Tasks']/following-sibling::div[@class='card']/div[contains(@class, 'setting-group')]", (elementId, nodeIter) => {
+                    const nodes = [];
+                    let node = null;
+                    while (node = nodeIter.iterateNext()) {
+                        nodes.push(node);
+                    }
+                    for (const el of nodes) {
+                        const pluginName = el.querySelector('.setting').innerText;
+                        const hidePlugin = this.hiddenPluginTasks.find(hiddenPluginTask => hiddenPluginTask[0] === pluginName && !hiddenPluginTask[1]);
+                        if (hidePlugin) el.classList.add('d-none');
+                        const tasks = el.querySelectorAll('.collapsible-section .setting');
+                        for (const task of tasks) {
+                            const taskName = task.querySelector('h3').innerText;
+                            const hideTask = this.hiddenPluginTasks.find(hiddenPluginTask => hiddenPluginTask[0] === pluginName && hiddenPluginTask[1] === taskName);
+                            if (hideTask) {
+                                task.classList.add('d-none');
+                                if (!task.nextSibling) {
+                                    task.previousSibling.style.borderBottom = 0;
+                                }
+                            }
+                            this.dispatchEvent(new CustomEvent('stash:plugin:task', { 'detail': { taskName, task } }));
+                        }
                     }
                 });
+            }
+            registerHiddenPluginTask(plugin, task) {
+                this.hiddenPluginTasks.push([plugin, task]);
             }
             async pollLogsForMessage(prefix) {
                 const reqTime = Date.now();
@@ -1004,6 +1034,7 @@
             waitForElementId,
             waitForElementClass,
             waitForElementByXpath,
+            waitForElementsByXpath,
             getElementByXpath,
             getElementsByXpath,
             getClosestAncestor,

@@ -1,7 +1,7 @@
 name: Stash Performer Custom Fields
 # requires: stashUserscriptLibrary
 description: Adds custom fields to performers that are stored in performer details as JSON.
-version: 0.3.0
+version: 0.4.0
 ui:
   requires: 
   - stashUserscriptLibrary7dJx1qP

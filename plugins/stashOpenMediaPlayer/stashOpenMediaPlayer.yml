@@ -1,7 +1,7 @@
 name: Stash Open Media Player
 # requires: stashUserscriptLibrary7dJx1qP
 description: Open scene filepath links in an external media player
-version: 0.2.3
+version: 0.3.0
 url: https://github.com/7dJx1qP/stash-plugins#stash-open-media-player
 ui:
   requires: 
