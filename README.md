@@ -158,6 +158,8 @@ Adds stashbox scene counts to performers and studios
 * Requests (https://pypi.org/project/requests/)
 * PyStashLib (https://pypi.org/project/pystashlib/)
 
+![Performer page](images/Stash%20Stashbox%20Scene%20Count/performer.png?raw=true "Performer page")
+
 ### Stash StashID Icon
 
 Adds checkmark icon to performer and studio cards that have a stashid
