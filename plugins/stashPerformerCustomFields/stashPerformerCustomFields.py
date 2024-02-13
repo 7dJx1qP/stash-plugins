@@ -22,10 +22,8 @@ database_path = result["configuration"]["general"]["databasePath"]
 log.LogDebug(f"databasePath: {database_path}")
 
 def get_fields():
-    settings = client.callGraphQL("""query Configuration { configuration { plugins } }""")['configuration']['plugins']
-    if settings and 'stashPerformerCustomFields' in settings and 'fields' in settings['stashPerformerCustomFields']:
-        fields = settings['stashPerformerCustomFields']['fields']
-    fields = (fields or 'notes,paths,urls').split(',')
+    plugin_settings = client.callGraphQL("""query Configuration { configuration { plugins } }""")['configuration']['plugins'].get('stashPerformerCustomFields', {})
+    fields = plugin_settings.get('fields', 'notes,paths,urls').replace(' ', '').split(',')
     log.LogDebug(f'fields: {json.dumps(fields)}')
     return fields
 
