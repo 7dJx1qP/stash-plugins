@@ -15,7 +15,7 @@
     let cropping = false;
     let cropper = null;
 
-    stash.addEventListener('page:tag:scenes', function () {
+    stash.addEventListener('page:tag:any', function () {
         waitForElementClass('detail-container', function () {
             const cropBtnContainerId = "crop-btn-container";
             if (!document.getElementById(cropBtnContainerId)) {

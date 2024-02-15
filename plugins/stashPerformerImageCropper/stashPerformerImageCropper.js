@@ -19,7 +19,7 @@
     let cropping = false;
     let cropper = null;
 
-    stash.addEventListener('page:performer', function () {
+    stash.addEventListener('page:performer:any', function () {
         waitForElementClass('detail-container', function () {
             const cropBtnContainerId = "crop-btn-container";
             if (!document.getElementById(cropBtnContainerId)) {
