@@ -197,3 +197,9 @@ Adds new stats to the stats page: marker count, favorite performer count, studio
 Adds ability to crop tag image from tag page
 
 ![Cropper](images/Stash%20Tag%20Image%20Cropper/tag-image-cropper.png?raw=true "Cropper")
+
+### Stash Video Player AB Loop Time Input
+
+Replaces the video player AB loop start and end buttons with time inputs
+
+![Scene video player](images/Stash%20Video%20Player%20AB%20Loop%20Time%20Input/ab-loop-time-input.png?raw=true "Scene video player")
