@@ -63,10 +63,9 @@
             return rv;
         };
     };
-    history.pushState = _wr('replaceState');
     history.replaceState = _wr('replaceState');
 
-    window.addEventListener('replaceState', async function () {
+    async function historyStateHandler() {
         if (markerResponseCache.hasOwnProperty(window.location.search)) {
             markersFilter = cloneJSON(markerResponseCache[window.location.search].markersFilter);
             sceneMarkerFilter = cloneJSON(markerResponseCache[window.location.search].sceneMarkerFilter);
@@ -82,7 +81,8 @@
             await fetchMarkers(); // buffer next page of markers
             markerFetchInterval = setInterval(fetchMarkers, 10000); // get next page of markers every 20 seconds
         }
-    });
+    }
+    window.addEventListener('replaceState', historyStateHandler);
 
     function fmtMSS(s) {
         return(s - (s %= 60)) / 60 + (9 < s ? ':': ':0') + s
