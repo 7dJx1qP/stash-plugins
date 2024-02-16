@@ -88,6 +88,14 @@ Adds custom fields to performers that are stored in performer details as JSON.
 * Requests (https://pypi.org/project/requests/)
 * PyStashLib (https://pypi.org/project/pystashlib/)
 
+![Custom fields view](images/Stash%20Performer%20Custom%20Fields/custom-fields-view.png?raw=true "Custom fields view")
+
+![Custom fields compact view](images/Stash%20Performer%20Custom%20Fields/custom-fields-view-compact.png?raw=true "Custom fields compact view")
+
+![Custom fields edit](images/Stash%20Performer%20Custom%20Fields/custom-fields-edit.png?raw=true "Custom fields edit")
+
+![Performer details edit](images/Stash%20Performer%20Custom%20Fields/performer-details-edit.png?raw=true "Performer details edit")
+
 ### Stash Performer Image Cropper
 
 Adds ability to crop performer image from performer page

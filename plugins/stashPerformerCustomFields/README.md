@@ -12,6 +12,14 @@ This plugin provides the following:
 * A performer creation hook that adds custom fields to performer details data
 * UI updates to performer pages for viewing and editing performer details and custom fields
 
+![Custom fields view](images/Stash%20Performer%20Custom%20Fields/custom-fields-view.png?raw=true "Custom fields view")
+
+![Custom fields compact view](images/Stash%20Performer%20Custom%20Fields/custom-fields-view-compact.png?raw=true "Custom fields compact view")
+
+![Custom fields edit](images/Stash%20Performer%20Custom%20Fields/custom-fields-edit.png?raw=true "Custom fields edit")
+
+![Performer details edit](images/Stash%20Performer%20Custom%20Fields/performer-details-edit.png?raw=true "Performer details edit")
+
 ## Consequences
 
 Since this plugin combines existing performer details data and custom field data in JSON format for storage as performer details in the stash database, this has some consequences and limitations to consider:
