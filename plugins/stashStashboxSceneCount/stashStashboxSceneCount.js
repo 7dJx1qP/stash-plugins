@@ -20,6 +20,27 @@
 
     const STASHDB_ENDPOINT = 'https://stashdb.org/graphql';
 
+    let settings = null;
+    async function isSceneCountEnabled(page) {
+        if (settings === null) {
+            settings = await stash.getPluginConfig('stashStashboxSceneCount');
+        }
+        let bUpdate = false;
+        settings = settings || {};
+        if (settings?.endpoints === undefined) {
+            settings.endpoints = STASHDB_ENDPOINT;
+            bUpdate = true;
+        }
+        if (settings?.[page] === undefined) {
+            settings[page] = true;
+            bUpdate = true;
+        }
+        if (bUpdate) {
+            await stash.updatePluginConfig('stashStashboxSceneCount', settings);
+        }
+        return settings?.[page] !== false;
+    }
+
     async function runGetStashboxPerformerSceneCountTask(endpoint, api_key, stashId) {
         return stash.runPluginTask("stashStashboxSceneCount", "Get Stashbox Performer Scene Count", [{"key":"endpoint", "value":{"str": endpoint}}, {"key":"api_key", "value":{"str": api_key}}, {"key":"stash_id", "value":{"str": stashId}}]);
     }
@@ -144,9 +165,8 @@
     }
 
     async function performerPageHandler() {
-        const settings = await stash.getPluginConfig('stashStashboxSceneCount');
-        const endpoints = (settings?.endpoints || STASHDB_ENDPOINT).split(',');
-        if (settings?.performers) {
+        if (await isSceneCountEnabled('performers')) {
+            const endpoints = (settings?.endpoints || STASHDB_ENDPOINT).split(',');
             const performer = await getPerformer();
             const data = await stash.getStashBoxes();
             for (const { endpoint, stash_id } of performer.stash_ids.filter(o => endpoints.indexOf(o.endpoint) !== -1)) {
@@ -167,9 +187,8 @@
     stash.addEventListener('page:performer:details:expanded', performerPageHandler);
 
     async function studioPageHandler() {
-        const settings = await stash.getPluginConfig('stashStashboxSceneCount');
-        const endpoints = (settings?.endpoints || STASHDB_ENDPOINT).split(',');
-        if (settings?.studios) {
+        if (await isSceneCountEnabled('studios')) {
+            const endpoints = (settings?.endpoints || STASHDB_ENDPOINT).split(',');
             const studio = await getStudio();
             const data = await stash.getStashBoxes();
             for (const { endpoint, stash_id } of studio.stash_ids.filter(o => endpoints.indexOf(o.endpoint) !== -1)) {

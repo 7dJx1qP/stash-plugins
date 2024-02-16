@@ -21,7 +21,12 @@
         if (settings === null) {
             settings = await stash.getPluginConfig('stashMarkdown');
         }
-        return settings?.[page];
+        if (settings?.[page] === undefined) {
+            settings = settings || {};
+            settings[page] = true;
+            await stash.updatePluginConfig('stashMarkdown', settings);
+        }
+        return settings?.[page] !== false;
     }
 
     stash.addEventListener('page:tag:any', async function () {

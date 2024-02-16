@@ -1,7 +1,7 @@
 name: Stash Stashbox Scene Count
 # requires: stashUserscriptLibrary7dJx1qP
 description: Adds stashbox scene counts to performers and studios
-version: 0.3.1
+version: 0.3.2
 ui:
   requires: 
   - stashUserscriptLibrary7dJx1qP
@@ -18,7 +18,7 @@ settings:
     displayName: Include subsidiary studios
     type: BOOLEAN
   endpoints:
-    displayName: Stashbox endpoints. Comma separate multiple endpoints. Defaults to https://stashdb.org/graphql
+    displayName: Stashbox endpoints. Comma separate multiple endpoints
     type: STRING
 exec:
   - python

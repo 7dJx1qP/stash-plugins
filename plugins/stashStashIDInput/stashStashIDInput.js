@@ -22,7 +22,12 @@
         if (settings === null) {
             settings = await stash.getPluginConfig('stashStashIdInput');
         }
-        return settings?.[page];
+        if (settings?.[page] === undefined) {
+            settings = settings || {};
+            settings[page] = true;
+            await stash.updatePluginConfig('stashStashIdInput', settings);
+        }
+        return settings?.[page] !== false;
     }
 
     async function updatePerformerStashIDs(performerId, stash_ids) {
