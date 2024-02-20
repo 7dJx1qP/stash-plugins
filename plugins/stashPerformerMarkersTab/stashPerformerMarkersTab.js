@@ -39,15 +39,14 @@
         waitForElementClass("nav-tabs", async function (className, el) {
             const navTabs = el.item(0);
             if (!document.getElementById(markersTabId)) {
-                const performerId = window.location.pathname.replace('/performers/', '');
+                const markerTab = createElementFromHTML(`<a id="${markersTabId}" href="#" role="tab" data-rb-event-key="markers" aria-controls="performer-details-tabpane-markers" aria-selected="false" class="nav-item nav-link">Markers<span class="left-spacing badge badge-pill badge-secondary">0</span></a>`)
+                navTabs.appendChild(markerTab);
+                const performerId = window.location.pathname.split('/').find((o, i, arr) => i > 1 && arr[i - 1] == 'performers');
                 const markersCount = (await getPerformerMarkersCount(performerId)).data.findSceneMarkers.count;
-                if (!document.getElementById(markersTabId)) {
-                    const markerTab = createElementFromHTML(`<a id="${markersTabId}" href="#" role="tab" data-rb-event-key="markers" aria-controls="performer-details-tabpane-markers" aria-selected="false" class="nav-item nav-link">Markers<span class="left-spacing badge badge-pill badge-secondary">${markersCount}</span></a>`)
-                    navTabs.appendChild(markerTab);
-                    const performerName = document.querySelector('.performer-head h2').innerText;
-                    const markersUrl = `${window.location.origin}/scenes/markers?c=${JSON.stringify({"type":"performers","value":[{"id":performerId,"label":performerName}],"modifier":"INCLUDES_ALL"})}`
-                    markerTab.href = markersUrl;
-                }
+                document.querySelector(`#${markersTabId} span`).innerHTML = markersCount;
+                const performerName = document.querySelector('.performer-head h2').innerText;
+                const markersUrl = `${window.location.origin}/scenes/markers?c=${JSON.stringify({"type":"performers","value":[{"id":performerId,"label":performerName}],"modifier":"INCLUDES_ALL"})}`
+                markerTab.href = markersUrl;
             }
         });
     }
