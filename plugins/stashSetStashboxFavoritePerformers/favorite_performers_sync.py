@@ -200,8 +200,7 @@ WHERE a.favorite = 1""")])
     i = 0
     for stash_id in favorites_to_remove:
         log.trace(f'Removing stashbox favorite {stash_id}')
-        update_stashbox_performer_favorite(endpoint, boxapi_key, stash_id, False)
-        if not update_stashbox_performer_favorite(endpoint, boxapi_key, stash_id, True).get('favoritePerformer'):
+        if not update_stashbox_performer_favorite(endpoint, boxapi_key, stash_id, False).get('favoritePerformer'):
             log.warning(f'Failed removing stashbox favorite {stash_id}')
             if tag:
                 tag_performer(db, stash_id, tag.id)
