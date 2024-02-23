@@ -188,7 +188,13 @@ Adds input textboxes to performer detail and studio detail pages for stashid ent
 
 ### Stash Stats
 
-Adds new stats to the stats page: marker count, favorite performer count, studios with stashid %, performers with stashid %, scenes with stashid %, tags with images %, movies with covers %, studios with images %, performers with images %, hd scenes %
+Adds new stats to the stats page.
+
+Default plugin stats: marker count, favorite performer count, studios with stashid %, performers with stashid %, scenes with stashid %, tags with images %, movies with covers %, studios with images %, performers with images %, hd scenes %
+
+The plugin stats can be customized via a configuration file.
+
+**[VIEW DOCUMENTATION](plugins/stashStats/README.md)**
 
 ![Stats page](images/Stash%20Stats/stats-page.png?raw=true "Stats page")
 

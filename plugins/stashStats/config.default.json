@@ -1,0 +1,225 @@
+[
+    [
+        {
+            "variables": {
+                "stashIdCount": {
+                    "variables": {
+                        "scene_filter": {
+                            "stash_id_endpoint": {
+                                "endpoint": "",
+                                "stash_id": "",
+                                "modifier": "NOT_NULL"
+                            }
+                        }
+                    },
+                    "query": "query FindScenes($filter: FindFilterType, $scene_filter: SceneFilterType, $scene_ids: [Int!]) {\n  findScenes(filter: $filter, scene_filter: $scene_filter, scene_ids: $scene_ids) {\n    count\n  }\n}",
+                    "path": "data.findScenes.count"
+                },
+                "totalCount": {
+                    "variables": {
+                        "scene_filter": {}
+                    },
+                    "query": "query FindScenes($filter: FindFilterType, $scene_filter: SceneFilterType, $scene_ids: [Int!]) {\n  findScenes(filter: $filter, scene_filter: $scene_filter, scene_ids: $scene_ids) {\n    count\n  }\n}",
+                    "path": "data.findScenes.count"
+                }
+            },
+            "header": "Scene StashIDs",
+            "template": "${(variables.stashIdCount / variables.totalCount * 100).toFixed(2)}%"
+        },
+        {
+            "variables": {
+                "stashIdCount": {
+                    "variables": {
+                        "studio_filter": {
+                            "stash_id_endpoint": {
+                                "endpoint": "",
+                                "stash_id": "",
+                                "modifier": "NOT_NULL"
+                            }
+                        }
+                    },
+                    "query": "query FindStudios($filter: FindFilterType, $studio_filter: StudioFilterType) {\n  findStudios(filter: $filter, studio_filter: $studio_filter) {\n    count\n  }\n}",
+                    "path": "data.findStudios.count"
+                },
+                "totalCount": {
+                    "variables": {
+                        "scene_filter": {}
+                    },
+                    "query": "query FindStudios($filter: FindFilterType, $studio_filter: StudioFilterType) {\n  findStudios(filter: $filter, studio_filter: $studio_filter) {\n    count\n  }\n}",
+                    "path": "data.findStudios.count"
+                }
+            },
+            "header": "Studio StashIDs",
+            "template": "${(variables.stashIdCount / variables.totalCount * 100).toFixed(2)}%"
+        },
+        {
+            "variables": {
+                "stashIdCount": {
+                    "variables": {
+                        "performer_filter": {
+                            "stash_id_endpoint": {
+                                "endpoint": "",
+                                "stash_id": "",
+                                "modifier": "NOT_NULL"
+                            }
+                        }
+                    },
+                    "query": "query FindPerformers($filter: FindFilterType, $performer_filter: PerformerFilterType) {\n  findPerformers(filter: $filter, performer_filter: $performer_filter) {\n    count\n  }\n}",
+                    "path": "data.findPerformers.count"
+                },
+                "totalCount": {
+                    "variables": {
+                        "performer_filter": {}
+                    },
+                    "query": "query FindPerformers($filter: FindFilterType, $performer_filter: PerformerFilterType) {\n  findPerformers(filter: $filter, performer_filter: $performer_filter) {\n    count\n  }\n}",
+                    "path": "data.findPerformers.count"
+                }
+            },
+            "header": "Performer StashIDs",
+            "template": "${(variables.stashIdCount / variables.totalCount * 100).toFixed(2)}%"
+        },
+        {
+            "variables": {
+                "count": {
+                    "variables": {
+                        "performer_filter": {
+                            "filter_favorites": true
+                        }
+                    },
+                    "query": "query FindPerformers($filter: FindFilterType, $performer_filter: PerformerFilterType) {\n  findPerformers(filter: $filter, performer_filter: $performer_filter) {\n    count\n  }\n}",
+                    "path": "data.findPerformers.count"
+                }
+            },
+            "header": "Favorite Performers",
+            "template": "${variables.count}"
+        },
+        {
+            "variables": {
+                "count": {
+                    "variables": {
+                        "scene_marker_filter": {}
+                    },
+                    "query": "query FindSceneMarkers($filter: FindFilterType, $scene_marker_filter: SceneMarkerFilterType) {\n  findSceneMarkers(filter: $filter, scene_marker_filter: $scene_marker_filter) {\n    count\n  }\n}",
+                    "path": "data.findSceneMarkers.count"
+                }
+            },
+            "header": "Markers",
+            "template": "${variables.count}"
+        }
+    ],
+    [
+        {
+            "variables": {
+                "imageCount": {
+                    "variables": {
+                        "tag_filter": {
+                            "is_missing": "image"
+                        }
+                    },
+                    "query": "query FindTags($filter: FindFilterType, $tag_filter: TagFilterType) {\n  findTags(filter: $filter, tag_filter: $tag_filter) {\n    count\n  }\n}",
+                    "path": "data.findTags.count"
+                },
+                "totalCount": {
+                    "variables": {
+                        "tag_filter": {}
+                    },
+                    "query": "query FindTags($filter: FindFilterType, $tag_filter: TagFilterType) {\n  findTags(filter: $filter, tag_filter: $tag_filter) {\n    count\n  }\n}",
+                    "path": "data.findTags.count"
+                }
+            },
+            "header": "Tag Images",
+            "template": "${((variables.totalCount - variables.imageCount) / variables.totalCount * 100).toFixed(2)}%"
+        },
+        {
+            "variables": {
+                "imageCount": {
+                    "variables": {
+                        "movie_filter": {
+                            "is_missing": "front_image"
+                        }
+                    },
+                    "query": "query FindMovies($filter: FindFilterType, $movie_filter: MovieFilterType) {\n  findMovies(filter: $filter, movie_filter: $movie_filter) {\n    count\n  }\n}",
+                    "path": "data.findMovies.count"
+                },
+                "totalCount": {
+                    "variables": {
+                        "movie_filter": {}
+                    },
+                    "query": "query FindMovies($filter: FindFilterType, $movie_filter: MovieFilterType) {\n  findMovies(filter: $filter, movie_filter: $movie_filter) {\n    count\n  }\n}",
+                    "path": "data.findMovies.count"
+                }
+            },
+            "header": "Movie Images",
+            "template": "${((variables.totalCount - variables.imageCount) / variables.totalCount * 100).toFixed(2)}%"
+        },
+        {
+            "variables": {
+                "imageCount": {
+                    "variables": {
+                        "performer_filter": {
+                            "is_missing": "image"
+                        }
+                    },
+                    "query": "query FindPerformers($filter: FindFilterType, $performer_filter: PerformerFilterType) {\n  findPerformers(filter: $filter, performer_filter: $performer_filter) {\n    count\n  }\n}",
+                    "path": "data.findPerformers.count"
+                },
+                "totalCount": {
+                    "variables": {
+                        "performer_filter": {}
+                    },
+                    "query": "query FindPerformers($filter: FindFilterType, $performer_filter: PerformerFilterType) {\n  findPerformers(filter: $filter, performer_filter: $performer_filter) {\n    count\n  }\n}",
+                    "path": "data.findPerformers.count"
+                }
+            },
+            "header": "Performer Images",
+            "template": "${((variables.totalCount - variables.imageCount) / variables.totalCount * 100).toFixed(2)}%"
+        },
+        {
+            "variables": {
+                "imageCount": {
+                    "variables": {
+                        "studio_filter": {
+                            "is_missing": "image"
+                        }
+                    },
+                    "query": "query FindStudios($filter: FindFilterType, $studio_filter: StudioFilterType) {\n  findStudios(filter: $filter, studio_filter: $studio_filter) {\n    count\n  }\n}",
+                    "path": "data.findStudios.count"
+                },
+                "totalCount": {
+                    "variables": {
+                        "scene_filter": {}
+                    },
+                    "query": "query FindStudios($filter: FindFilterType, $studio_filter: StudioFilterType) {\n  findStudios(filter: $filter, studio_filter: $studio_filter) {\n    count\n  }\n}",
+                    "path": "data.findStudios.count"
+                }
+            },
+            "header": "Studio Images",
+            "template": "${((variables.totalCount - variables.imageCount) / variables.totalCount * 100).toFixed(2)}%"
+        },
+        {
+            "variables": {
+                "sceneHDCount": {
+                    "variables": {
+                        "scene_filter": {
+                            "resolution": {
+                                "value": "WEB_HD",
+                                "modifier": "GREATER_THAN"
+                            }
+                        }
+                    },
+                    "query": "query FindScenes($filter: FindFilterType, $scene_filter: SceneFilterType, $scene_ids: [Int!]) {\n  findScenes(filter: $filter, scene_filter: $scene_filter, scene_ids: $scene_ids) {\n    count\n  }\n}",
+                    "path": "data.findScenes.count"
+                },
+                "totalCount": {
+                    "variables": {
+                        "scene_filter": {}
+                    },
+                    "query": "query FindScenes($filter: FindFilterType, $scene_filter: SceneFilterType, $scene_ids: [Int!]) {\n  findScenes(filter: $filter, scene_filter: $scene_filter, scene_ids: $scene_ids) {\n    count\n  }\n}",
+                    "path": "data.findScenes.count"
+                }
+            },
+            "header": "HD Scenes",
+            "template": "${(variables.sceneHDCount / variables.totalCount * 100).toFixed(2)}%"
+        }
+    ]
+]
