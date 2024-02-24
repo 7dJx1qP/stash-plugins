@@ -103,4 +103,16 @@
     stash.addEventListener('page:scenes', function () {
         waitForElementByXpath("//button[contains(@class, 'btn-primary') and text()='Scrape by fragment']", initDraftButtons);
     });
+
+    // v0.24.3 compatibility
+    stash.addEventListener('page:studio', function () {
+        waitForElementByXpath("//button[contains(@class, 'btn-primary') and text()='Scrape by fragment']", initDraftButtons);
+    });
+    stash.addEventListener('page:tag', function () {
+        waitForElementByXpath("//button[contains(@class, 'btn-primary') and text()='Scrape by fragment']", initDraftButtons);
+    });
+    stash.addEventListener('page:performer', function () {
+        waitForElementByXpath("//button[contains(@class, 'btn-primary') and text()='Scrape by fragment']", initDraftButtons);
+    });
+
 })();

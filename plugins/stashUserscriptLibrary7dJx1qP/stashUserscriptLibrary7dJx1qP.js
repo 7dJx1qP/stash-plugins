@@ -584,7 +584,7 @@
                     this.dispatchLocationEvent(new Event('page:studio:childstudios'));
                 }
                 // studio scenes page
-                else if (this.matchUrl(location, /\/studios\/\d+\?/)) {
+                else if (this.matchUrl(location, /\/studios\/\d+\/scenes/)) {
                     this.log.debug('[Navigation] Studio Page - Scenes');
                     this.processTagger();
                     this.dispatchLocationEvent(new Event('page:studio:scenes'));
@@ -663,7 +663,7 @@
                     this.dispatchLocationEvent(new Event('page:tag:performers'));
                 }
                 // tag scenes page
-                else if (this.matchUrl(location, /\/tags\/\d+\?/)) {
+                else if (this.matchUrl(location, /\/tags\/\d+\/scenes/)) {
                     this.log.debug('[Navigation] Tag Page - Scenes');
                     this.processTagger();
                     this.dispatchLocationEvent(new Event('page:tag:scenes'));

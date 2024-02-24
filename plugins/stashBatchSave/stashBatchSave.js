@@ -161,4 +161,15 @@
         waitForElementByXpath("//button[contains(@class, 'btn-primary') and text()='Scrape by fragment']", initRemoveButtons);
     });
 
+    // v0.24.3 compatibility
+    stash.addEventListener('page:studio', function () {
+        waitForElementByXpath("//button[contains(@class, 'btn-primary') and text()='Scrape by fragment']", initRemoveButtons);
+    });
+    stash.addEventListener('page:tag', function () {
+        waitForElementByXpath("//button[contains(@class, 'btn-primary') and text()='Scrape by fragment']", initRemoveButtons);
+    });
+    stash.addEventListener('page:performer', function () {
+        waitForElementByXpath("//button[contains(@class, 'btn-primary') and text()='Scrape by fragment']", initRemoveButtons);
+    });
+
 })();
