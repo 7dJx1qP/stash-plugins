@@ -14,6 +14,11 @@
         createElementFromHTML,
     } = window.stash7dJx1qP;
 
+    document.body.appendChild(document.createElement('style')).textContent = `
+    .search-item > div.row:first-child > div.col-md-6.my-1 > div:first-child { display: flex; flex-direction: column; }
+    .tagger-remove { order: 10; }
+    `;
+
     let running = false;
     const buttons = [];
     let maxCount = 0;
