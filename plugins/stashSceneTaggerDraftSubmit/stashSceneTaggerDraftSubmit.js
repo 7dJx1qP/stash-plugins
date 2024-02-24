@@ -92,6 +92,10 @@
         waitForElementByXpath("//button[contains(@class, 'btn-primary') and text()='Scrape by fragment']", initDraftButtons);
     });
 
+    stash.addEventListener('page:tag:scenes', function () {
+        waitForElementByXpath("//button[contains(@class, 'btn-primary') and text()='Scrape by fragment']", initDraftButtons);
+    });
+
     stash.addEventListener('page:performer:scenes', function () {
         waitForElementByXpath("//button[contains(@class, 'btn-primary') and text()='Scrape by fragment']", initDraftButtons);
     });
