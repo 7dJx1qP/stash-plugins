@@ -273,6 +273,7 @@
         if (includeTags) {
             for (const tagNode of tagNodes) {
                 tagNode.style.backgroundColor = COLORS.red;
+                if (!remoteData.tags) continue;
                 for (const remoteTag of remoteData.tags) {
                     const tag = data.tags.find(o => o.id === remoteTag.stored_id);
                     if (tag?.name === tagNode.innerText) {
@@ -282,6 +283,7 @@
             }
             for (const tagNode of matchTagNodes) {
                 tagNode.style.backgroundColor = COLORS.yellow;
+                if (!remoteData.tags) continue;
                 for (const tag of data.tags) {
                     if (tag.name === tagNode.innerText) {
                         const remoteTag = remoteData.tags.find(o => o.stored_id === tag.id);
