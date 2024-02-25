@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     const {
@@ -19,10 +19,29 @@
     .tagger-remove { order: 10; }
     `;
 
+    let settings = null;
+    async function loadSettings() {
+        if (settings === null) {
+            settings = await stash.getPluginConfig('stashBatchSave');
+        }
+        if (settings?.enableFingerprints === undefined) {
+            settings = settings || {};
+            settings.enableFingerprints = false;
+            await stash.updatePluginConfig('stashBatchSave', settings);
+        }
+        return settings?.enableFingerprints === true;
+    }
+    loadSettings();
+
+    function isEnableFingerprints() {
+        return settings?.enableFingerprints === true;
+    }
+
     let running = false;
     const buttons = [];
     let maxCount = 0;
     let sceneId = null;
+    const removedFingerprints = [];
 
     function run() {
         if (!running) return;
@@ -51,13 +70,62 @@
         }
     }
 
-    function processSceneUpdate(evt) {
+    function debounceAsync(func, delay) {
+        let timeoutId;
+        return function (...args) {
+            clearTimeout(timeoutId);
+            return new Promise((resolve, reject) => {
+                timeoutId = setTimeout(async () => {
+                    try {
+                        const result = await func.apply(this, args);
+                        resolve(result);
+                    } catch (error) {
+                        reject(error);
+                    }
+                }, delay);
+            });
+        };
+    }
+
+    async function updateFingerprintQueue() {
+        if (isEnableFingerprints()) return;
+
+        const tagger = await localforage.getItem('tagger');
+        if (Array.isArray(tagger?.fingerprintQueue?.[tagger?.selectedEndpoint])) {
+            tagger.fingerprintQueue[tagger.selectedEndpoint] = tagger.fingerprintQueue[tagger.selectedEndpoint].filter(o => removedFingerprints.indexOf(o) < 0);
+        }
+        await localforage.setItem('tagger', tagger);
+
+        const el = getElementByXpath("//span[contains(text(), 'Submit') and contains(text(), 'Fingerprint')]");
+        if (el) {
+            const fingerprintSet = new Set(tagger.fingerprintQueue[tagger.selectedEndpoint]);
+            const removedFingerprintSet = new Set(removedFingerprints);
+            el.innerText = `Submit ${fingerprintSet.size} Fingerprint${fingerprintSet.size !== 1 ? 's' : ''}`;
+            el.innerText += removedFingerprintSet.size ? ` (${removedFingerprintSet.size} Batch Saved)` : '';
+        }
+    }
+
+    const debouncedUpdateFingerprintQueue = debounceAsync(updateFingerprintQueue, 100);
+
+    async function processSceneUpdate(evt) {
         if (running && evt.detail.data?.sceneUpdate?.id === sceneId) {
+            removedFingerprints.push(sceneId);
             setTimeout(() => {
                 run();
             }, 0);
         }
     }
+
+    stash.addEventListener('stash:request', async evt => {
+        if (isEnableFingerprints()) return;
+        if (evt.detail?.body) {
+            const body = JSON.parse(evt.detail.body);
+            if (body.operationName === "SubmitStashBoxFingerprints") {
+                body.variables.input.scene_ids = body.variables.input.scene_ids.filter(o => removedFingerprints.indexOf(o) < 0);
+                evt.detail.body = JSON.stringify(body);
+            }
+        }
+    });
 
     const btnId = 'batch-save';
     const startLabel = 'Save All';
@@ -113,10 +181,12 @@
         }
     });
 
-    function checkSaveButtonDisplay() {
+    async function checkSaveButtonDisplay() {
         const taggerContainer = document.querySelector('.tagger-container');
         const saveButton = getElementByXpath("//button[text()='Save']", taggerContainer);
         btn.style.display = saveButton ? 'inline-block' : 'none';
+
+        await debouncedUpdateFingerprintQueue();
     }
 
     stash.addEventListener('tagger:mutations:searchitems', checkSaveButtonDisplay);
