@@ -508,6 +508,7 @@
                 // performer page
                 else if (this.matchUrl(location, /\/performers\/\d+/)) {
                     this.log.debug('[Navigation] Performers Page');
+                    if (this.compareVersion('0.24.3') <= 0) this.processTagger(); // v0.24.3 compatibility
                     this.dispatchLocationEvent(new Event('page:performer'));
                 }
                 // performer any page
@@ -592,6 +593,7 @@
                 // studio page
                 else if (this.matchUrl(location, /\/studios\/\d+/)) {
                     this.log.debug('[Navigation] Studio Page');
+                    if (this.compareVersion('0.24.3') <= 0) this.processTagger(); // v0.24.3 compatibility
                     this.dispatchLocationEvent(new Event('page:studio'));
                 }
                 // studio any page
@@ -671,6 +673,7 @@
                 // tag page
                 else if (this.matchUrl(location, /\/tags\/\d+/)) {
                     this.log.debug('[Navigation] Tag Page');
+                    if (this.compareVersion('0.24.3') <= 0) this.processTagger(); // v0.24.3 compatibility
                     this.dispatchLocationEvent(new Event('page:tag'));
                 }
                 // tags any page
