@@ -1,7 +1,7 @@
 name: Stash StashID Input
 # requires: stashUserscriptLibrary7dJx1qP
 description: Adds input for entering new stash id to performer details page and studio page
-version: 0.7.2
+version: 0.7.3
 url: https://github.com/7dJx1qP/stash-plugins#stash-stashid-input
 ui:
   requires: 

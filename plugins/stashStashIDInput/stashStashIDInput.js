@@ -235,7 +235,7 @@ fragment StudioData on Studio {
             stashIdInput.value = '';
             if (!newStashId) return;
 
-            const id = window.location.pathname.replace(urlFragment, '');
+            const id = window.location.pathname.replace(urlFragment, '').split('/')[0];
             const stash_ids = await getStashIDs(id);
             if (stash_ids.find(({endpoint, stash_id }) => endpoint === newEndpoint && stash_id === newStashId)) return;
             if (!confirm(`Add StashID ${newStashId}?`)) return;
