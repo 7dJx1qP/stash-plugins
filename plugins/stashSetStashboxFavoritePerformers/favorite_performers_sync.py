@@ -159,7 +159,7 @@ def set_stashbox_favorite_performers(db: StashDatabase, endpoint: str, boxapi_ke
 FROM performers a
 JOIN performer_stash_ids b
 ON a.id = b.performer_id
-WHERE a.favorite = 1""")])
+WHERE a.favorite = 1 AND b.endpoint = ?""", (endpoint, ))])
     log.info(f'Stashbox endpoint {endpoint}')
     log.info(f'Stash {len(stash_ids)} favorite performers')
     tag = None
@@ -188,8 +188,8 @@ WHERE a.favorite = 1""")])
 
     i = 0
     for stash_id in favorites_to_add:
-        log.trace(f'Adding stashbox favorite {stash_id}')
-        if not update_stashbox_performer_favorite(endpoint, boxapi_key, stash_id, True).get('favoritePerformer'):
+        log.trace(f'Adding stashbox favorite {endpoint} {stash_id}')
+        if not (update_stashbox_performer_favorite(endpoint, boxapi_key, stash_id, True) or {}).get('favoritePerformer'):
             log.warning(f'Failed adding stashbox favorite {stash_id}')
             if tag:
                 tag_performer(db, stash_id, tag.id)
@@ -199,8 +199,8 @@ WHERE a.favorite = 1""")])
 
     i = 0
     for stash_id in favorites_to_remove:
-        log.trace(f'Removing stashbox favorite {stash_id}')
-        if not update_stashbox_performer_favorite(endpoint, boxapi_key, stash_id, False).get('favoritePerformer'):
+        log.trace(f'Removing stashbox favorite {endpoint} {stash_id}')
+        if not (update_stashbox_performer_favorite(endpoint, boxapi_key, stash_id, False) or {}).get('favoritePerformer'):
             log.warning(f'Failed removing stashbox favorite {stash_id}')
             if tag:
                 tag_performer(db, stash_id, tag.id)
@@ -210,7 +210,7 @@ WHERE a.favorite = 1""")])
 
     i = 0
     for performer_id, count in dupes_to_remove:
-        log.trace(f'Fixing duplicate stashbox favorite {performer_id} count={count}')
+        log.trace(f'Fixing duplicate stashbox favorite {endpoint} {performer_id} count={count}')
         update_stashbox_performer_favorite(endpoint, boxapi_key, performer_id, False)
         update_stashbox_performer_favorite(endpoint, boxapi_key, performer_id, True)
         i += 1
