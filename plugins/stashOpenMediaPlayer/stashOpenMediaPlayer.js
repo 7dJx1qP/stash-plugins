@@ -24,7 +24,8 @@
     stash.addEventListener('page:scene', function () {
         waitForElementClass('scene-file-info', function () {
             const a = getElementByXpath("//dt[text()='Path']/following-sibling::dd/a");
-            if (a) {
+            if (a && !a.classList.contains('open-media-player')) {
+                a.classList.add('open-media-player');
                 a.addEventListener('click', async function () {
                     openMediaPlayerTask(a.href);
                 });
