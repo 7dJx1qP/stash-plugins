@@ -224,6 +224,101 @@
                 this.studios = {};
                 this.performers = {};
                 this.userscripts = [];
+                this.sceneTaggerObserver = new MutationObserver(mutations => {
+                    mutations.forEach(mutation => {
+                        mutation.addedNodes.forEach(node => {
+                            if (node?.classList?.contains('entity-name') && node.innerText.startsWith('Performer:')) {
+                                this.dispatchEvent(new CustomEvent('tagger:mutation:add:remoteperformer', { 'detail': { node, mutation } }));
+                            }
+                            else if (node?.classList?.contains('entity-name') && node.innerText.startsWith('Studio:')) {
+                                this.dispatchEvent(new CustomEvent('tagger:mutation:add:remotestudio', { 'detail': { node, mutation } }));
+                            }
+                            else if (node.tagName === 'SPAN' && node.innerText.startsWith('Matched:')) {
+                                this.dispatchEvent(new CustomEvent('tagger:mutation:add:local', { 'detail': { node, mutation } }));
+                            }
+                            else if (node.tagName === 'UL') {
+                                this.dispatchEvent(new CustomEvent('tagger:mutation:add:container', { 'detail': { node, mutation } }));
+                            }
+                            else if (node?.classList?.contains('col-lg-6')) {
+                                this.dispatchEvent(new CustomEvent('tagger:mutation:add:subcontainer', { 'detail': { node, mutation } }));
+                            }
+                            else if (node.tagName === 'H5') { // scene date
+                                this.dispatchEvent(new CustomEvent('tagger:mutation:add:date', { 'detail': { node, mutation } }));
+                            }
+                            else if (node.tagName === 'DIV' && node?.classList?.contains('d-flex') && node?.classList?.contains('flex-column')) { // scene stashid, url, details
+                                this.dispatchEvent(new CustomEvent('tagger:mutation:add:detailscontainer', { 'detail': { node, mutation } }));
+                            }
+                            else if (node.tagName === 'DIV' && node?.classList?.contains('react-select__multi-value')) {
+                                this.dispatchEvent(new CustomEvent('tagger:mutation:add:remotetag', { 'detail': { node, mutation } }));
+                            }
+                            else {
+                                this.dispatchEvent(new CustomEvent('tagger:mutation:add:other', { 'detail': { node, mutation } }));
+                            }
+                        });
+                    });
+                    this.dispatchEvent(new CustomEvent('tagger:mutations:searchitems', { 'detail': mutations }));
+                });
+                this.taggerContainerHeaderObserver = new MutationObserver(mutations => {
+                    this.dispatchEvent(new CustomEvent('tagger:mutations:header', { 'detail': mutations }));
+                });
+                this.performerPageObserver = new MutationObserver(mutations => {
+                    let isEdit = false;
+                    let isCollapsed = false;
+                    mutations.forEach(mutation => {
+                        if (mutation.attributeName === 'class') {
+                            if (mutation.target.classList.contains('edit')) {
+                                isEdit = true;
+                            }
+                            else if (mutation.target.classList.contains('collapsed')) {
+                                isCollapsed = true;
+                            }
+                            else if (mutation.target.classList.contains('full-width')) {
+                                isCollapsed = false;
+                            }
+                        }
+                    });
+                    if (isEdit) {
+                        this.dispatchLocationEvent(new Event('page:performer:edit'));
+                    }
+                    else {
+                        this.dispatchLocationEvent(new Event('page:performer:details'));
+                    }
+                    if (isCollapsed) {
+                        this.dispatchLocationEvent(new Event('page:performer:details:collapsed'));
+                    }
+                    else {
+                        this.dispatchLocationEvent(new Event('page:performer:details:expanded'));
+                    }
+                });
+                this.studioPageObserver = new MutationObserver(mutations => {
+                    let isEdit = false;
+                    let isCollapsed = false;
+                    mutations.forEach(mutation => {
+                        if (mutation.attributeName === 'class') {
+                            if (mutation.target.classList.contains('edit')) {
+                                isEdit = true;
+                            }
+                            else if (mutation.target.classList.contains('collapsed')) {
+                                isCollapsed = true;
+                            }
+                            else if (mutation.target.classList.contains('full-width')) {
+                                isCollapsed = false;
+                            }
+                        }
+                    });
+                    if (isEdit) {
+                        this.dispatchLocationEvent(new Event('page:studio:edit'));
+                    }
+                    else {
+                        this.dispatchLocationEvent(new Event('page:studio:details'));
+                    }
+                    if (isCollapsed) {
+                        this.dispatchLocationEvent(new Event('page:studio:details:collapsed'));
+                    }
+                    else {
+                        this.dispatchLocationEvent(new Event('page:studio:details:expanded'));
+                    }
+                });
             }
             async getVersion() {
                 const reqData = {
@@ -521,36 +616,7 @@
                             attributes : true,
                             attributeFilter : ['class']
                         }
-                        const observer = new MutationObserver(mutations => {
-                            let isEdit = false;
-                            let isCollapsed = false;
-                            mutations.forEach(mutation => {
-                                if (mutation.attributeName === 'class') {
-                                    if (mutation.target.classList.contains('edit')) {
-                                        isEdit = true;
-                                    }
-                                    else if (mutation.target.classList.contains('collapsed')) {
-                                        isCollapsed = true;
-                                    }
-                                    else if (mutation.target.classList.contains('full-width')) {
-                                        isCollapsed = false;
-                                    }
-                                }
-                            });
-                            if (isEdit) {
-                                this.dispatchLocationEvent(new Event('page:performer:edit'));
-                            }
-                            else {
-                                this.dispatchLocationEvent(new Event('page:performer:details'));
-                            }
-                            if (isCollapsed) {
-                                this.dispatchLocationEvent(new Event('page:performer:details:collapsed'));
-                            }
-                            else {
-                                this.dispatchLocationEvent(new Event('page:performer:details:expanded'));
-                            }
-                        });
-                        observer.observe(targetNode[0], observerOptions);
+                        this.performerPageObserver.observe(targetNode[0], observerOptions);
                     });
                 }
                 // performers wall
@@ -606,36 +672,7 @@
                             attributes : true,
                             attributeFilter : ['class']
                         }
-                        const observer = new MutationObserver(mutations => {
-                            let isEdit = false;
-                            let isCollapsed = false;
-                            mutations.forEach(mutation => {
-                                if (mutation.attributeName === 'class') {
-                                    if (mutation.target.classList.contains('edit')) {
-                                        isEdit = true;
-                                    }
-                                    else if (mutation.target.classList.contains('collapsed')) {
-                                        isCollapsed = true;
-                                    }
-                                    else if (mutation.target.classList.contains('full-width')) {
-                                        isCollapsed = false;
-                                    }
-                                }
-                            });
-                            if (isEdit) {
-                                this.dispatchLocationEvent(new Event('page:studio:edit'));
-                            }
-                            else {
-                                this.dispatchLocationEvent(new Event('page:studio:details'));
-                            }
-                            if (isCollapsed) {
-                                this.dispatchLocationEvent(new Event('page:studio:details:collapsed'));
-                            }
-                            else {
-                                this.dispatchLocationEvent(new Event('page:studio:details:expanded'));
-                            }
-                        });
-                        observer.observe(targetNode[0], observerOptions);
+                        this.studioPageObserver.observe(targetNode[0], observerOptions);
                     });
                 }
                 // studios wall
@@ -777,51 +814,13 @@
                     this.dispatchEvent(new CustomEvent('tagger', { 'detail': el }));
 
                     const searchItemContainer = document.querySelector('.tagger-container').lastChild;
-
-                    const observer = new MutationObserver(mutations => {
-                        mutations.forEach(mutation => {
-                            mutation.addedNodes.forEach(node => {
-                                if (node?.classList?.contains('entity-name') && node.innerText.startsWith('Performer:')) {
-                                    this.dispatchEvent(new CustomEvent('tagger:mutation:add:remoteperformer', { 'detail': { node, mutation } }));
-                                }
-                                else if (node?.classList?.contains('entity-name') && node.innerText.startsWith('Studio:')) {
-                                    this.dispatchEvent(new CustomEvent('tagger:mutation:add:remotestudio', { 'detail': { node, mutation } }));
-                                }
-                                else if (node.tagName === 'SPAN' && node.innerText.startsWith('Matched:')) {
-                                    this.dispatchEvent(new CustomEvent('tagger:mutation:add:local', { 'detail': { node, mutation } }));
-                                }
-                                else if (node.tagName === 'UL') {
-                                    this.dispatchEvent(new CustomEvent('tagger:mutation:add:container', { 'detail': { node, mutation } }));
-                                }
-                                else if (node?.classList?.contains('col-lg-6')) {
-                                    this.dispatchEvent(new CustomEvent('tagger:mutation:add:subcontainer', { 'detail': { node, mutation } }));
-                                }
-                                else if (node.tagName === 'H5') { // scene date
-                                    this.dispatchEvent(new CustomEvent('tagger:mutation:add:date', { 'detail': { node, mutation } }));
-                                }
-                                else if (node.tagName === 'DIV' && node?.classList?.contains('d-flex') && node?.classList?.contains('flex-column')) { // scene stashid, url, details
-                                    this.dispatchEvent(new CustomEvent('tagger:mutation:add:detailscontainer', { 'detail': { node, mutation } }));
-                                }
-                                else if (node.tagName === 'DIV' && node?.classList?.contains('react-select__multi-value')) {
-                                    this.dispatchEvent(new CustomEvent('tagger:mutation:add:remotetag', { 'detail': { node, mutation } }));
-                                }
-                                else {
-                                    this.dispatchEvent(new CustomEvent('tagger:mutation:add:other', { 'detail': { node, mutation } }));
-                                }
-                            });
-                        });
-                        this.dispatchEvent(new CustomEvent('tagger:mutations:searchitems', { 'detail': mutations }));
-                    });
-                    observer.observe(searchItemContainer, {
+                    this.sceneTaggerObserver.observe(searchItemContainer, {
                         childList: true,
                         subtree: true
                     });
 
                     const taggerContainerHeader = document.querySelector('.tagger-container-header');
-                    const taggerContainerHeaderObserver = new MutationObserver(mutations => {
-                        this.dispatchEvent(new CustomEvent('tagger:mutations:header', { 'detail': mutations }));
-                    });
-                    taggerContainerHeaderObserver.observe(taggerContainerHeader, {
+                    this.taggerContainerHeaderObserver.observe(taggerContainerHeader, {
                         childList: true,
                         subtree: true
                     });

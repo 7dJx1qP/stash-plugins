@@ -1,6 +1,6 @@
 name: 7dJx1qP's Stash Userscript Library
 description: Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
-version: 0.42.1
+version: 0.43.0
 url: https://github.com/7dJx1qP/stash-plugins
 ui:
   javascript:
