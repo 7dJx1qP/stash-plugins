@@ -1,7 +1,7 @@
 name: Stash Performer Audit Task Button
 # requires: stashUserscriptLibrary7dJx1qP
 description: Adds a button to the performers page to run the audit plugin task
-version: 0.4.2
+version: 0.4.3
 url: https://github.com/7dJx1qP/stash-plugins#stash-performer-audit-task-button
 ui:
   requires: 

@@ -1,7 +1,7 @@
 name: Stash Set Stashbox Favorite Performers
 # requires: stashUserscriptLibrary7dJx1qP
 description: Set Stashbox favorite performers according to stash favorites
-version: 0.6.4
+version: 0.6.5
 url: https://github.com/7dJx1qP/stash-plugins#stash-set-stashbox-favorite-performers
 ui:
   requires: 
