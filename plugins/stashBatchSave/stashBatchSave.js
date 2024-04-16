@@ -52,7 +52,7 @@
             if (searchItem.classList.contains('d-none')) {
                 setTimeout(() => {
                     run();
-                }, 0);
+                }, 50);
                 return;
             }
 
@@ -112,7 +112,7 @@
             removedFingerprints.push(sceneId);
             setTimeout(() => {
                 run();
-            }, 0);
+            }, 50);
         }
     }
 
