@@ -56,13 +56,15 @@ elif name == 'stashbox_studio_scene_count':
     JOIN studio_stash_ids c ON c.studio_id = a.studio_id
     WHERE c.stash_id = ?""", (stash_id, ))[0]
     else:
-        database_scene_count = db.fetchone("""SELECT COUNT(DISTINCT b.stash_id)
-FROM scenes a
-JOIN scene_stash_ids b ON a.id = b.scene_id
-JOIN studio_stash_ids c ON c.studio_id = a.studio_id
-JOIN studios d ON d.id = c.studio_id
-JOIN studio_stash_ids e ON e.studio_id = d.parent_id
-WHERE e.stash_id = ?""", (stash_id, ))[0]
+        database_scene_count = db.fetchone("""WITH RECURSIVE rec_studios(studio_id, endpoint) AS
+(SELECT ssi.studio_id, ssi.endpoint  
+ FROM studio_stash_ids ssi WHERE ssi.stash_id = ?
+ UNION
+ SELECT s.id  , rec_studios.endpoint  FROM studios as s
+ JOIN rec_studios ON s.parent_id = rec_studios.studio_id)
+SELECT COUNT(DISTINCT ssi.stash_id)
+FROM scenes s 
+JOIN scene_stash_ids ssi ON s.id = ssi.scene_id AND (ssi.endpoint,s.studio_id  ) IN (SELECT endpoint,studio_id  FROM rec_studios)""", (stash_id, ))[0]
     log.debug(f"{stash_id}: {database_scene_count}/{scene_count}")
 
 db.close()
