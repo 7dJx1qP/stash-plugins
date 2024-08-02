@@ -1,0 +1,274 @@
+- id: stashBatchQueryEdit
+  name: Stash Batch Query Edit
+  metadata:
+    description: Batch modify scene tagger search query
+  version: 0.6.1-0132a6a
+  date: 2024-02-11 03:26:25
+  path: stashBatchQueryEdit.zip
+  sha256: 5f5204cdcafd525f7f8ad0e881d6fc918cbe13ec13fcc50e10bc1950fddbaa00
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashBatchResultToggle
+  name: Stash Batch Result Toggle
+  metadata:
+    description: In Scene Tagger, adds button to toggle all stashdb scene match result fields. Saves clicks when you only want to save a few metadata fields. Instead of turning off every field, you batch toggle them off, then toggle on the ones you want
+  version: 0.6.1-0132a6a
+  date: 2024-02-11 03:26:25
+  path: stashBatchResultToggle.zip
+  sha256: cba48765014feb6a799607f3483ba4195f7f1b4efc2a94c2705d2b0f1a099ebc
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashBatchSave
+  name: Stash Batch Save
+  metadata:
+    description: Adds a batch save button to scenes tagger
+  version: 0.5.9-6ec0045
+  date: 2024-04-16 01:15:44
+  path: stashBatchSave.zip
+  sha256: 4dba97a119aa5c993fd9ce7d3b4d7c5d755906b14f577ceef7f3e1a0fca5ca39
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashBatchSearch
+  name: Stash Batch Search
+  metadata:
+    description: Adds a batch search button to scenes and performers tagger
+  version: 0.4.3-0132a6a
+  date: 2024-02-11 03:26:25
+  path: stashBatchSearch.zip
+  sha256: bf1ed147ef4a7d5bb9c592de128a790e2231ea1c1f7a3431d1c8608cba8eb0a0
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashMarkdown
+  name: Stash Markdown
+  metadata:
+    description: Adds markdown parsing to tag description fields
+  version: 0.5.2-2c9333b
+  date: 2024-02-16 12:55:58
+  path: stashMarkdown.zip
+  sha256: c0514a8c95d497a1e581aa9034d7bd234570d4ac834b963ccdc2bf228332c198
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashMarkersAutoscroll
+  name: Stash Markers Autoscroll
+  metadata:
+    description: Automatically scrolls markers page
+  version: 0.1.2-dc1c4aa
+  date: 2024-02-16 16:20:58
+  path: stashMarkersAutoscroll.zip
+  sha256: 91d1f42a7d72a7b06e428438a6f4b0ceea1fd5e67fd6f30f5c58bbb7f8a8df10
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashNewPerformerFilterButton
+  name: Stash New Performer Filter Button
+  metadata:
+    description: Adds a customizable button to the performers page. Links to a new performers filter by default.
+  version: 0.4.2-0132a6a
+  date: 2024-02-11 03:26:25
+  path: stashNewPerformerFilterButton.zip
+  sha256: b9a1df332bc1e329b44c8e216e3726868bac041b3d57c03974f5001999e686e9
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashOpenMediaPlayer
+  name: Stash Open Media Player
+  metadata:
+    description: Open scene filepath links in an external media player
+  version: 0.3.1-3960cb7
+  date: 2024-04-08 13:32:58
+  path: stashOpenMediaPlayer.zip
+  sha256: 10fe9763b68f363fff2161648747ed51d16f8fa7554ed09444d7b63e264cd67f
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashPerformerAuditTaskButton
+  name: Stash Performer Audit Task Button
+  metadata:
+    description: Adds a button to the performers page to run the audit plugin task
+  version: 0.4.3-2cfcc1a
+  date: 2024-04-08 13:40:47
+  path: stashPerformerAuditTaskButton.zip
+  sha256: b0aa1671be3acd2f1f0cb962b496aa19911686b4130594384985f1f9a9deee4e
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashPerformerCustomFields
+  name: Stash Performer Custom Fields
+  metadata:
+    description: Adds custom fields to performers that are stored in performer details as JSON.
+  version: 0.4.1-2cfcc1a
+  date: 2024-04-08 13:40:47
+  path: stashPerformerCustomFields.zip
+  sha256: 18fa15e0413b8b0ccf622908153b608dd5fe37496f8c473e9650ba0e1022dbdb
+  requires:
+    - stashUserscriptLibrary
+
+- id: stashPerformerImageCropper
+  name: Stash Performer Image Cropper
+  metadata:
+    description: Adds an image cropper to performer page
+  version: 0.3.3-ccf4986
+  date: 2024-02-15 11:16:23
+  path: stashPerformerImageCropper.zip
+  sha256: f5e7bb78646c360e1508a116ec84ab32251c1fff152d83242b26a7ed2d5d62b8
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashPerformerMarkersTab
+  name: Stash Performer Markers Tab
+  metadata:
+    description: Adds a Markers link to performer pages
+  version: 0.2.2-3f587b6
+  date: 2024-02-20 13:17:20
+  path: stashPerformerMarkersTab.zip
+  sha256: cfec1deb1a78cf344a08fb39e1d5f1a23c3bccdaba43f8da6abad1ef966d33ae
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashPerformerTaggerAdditions
+  name: Stash Performer Tagger Additions
+  metadata:
+    description: Adds performer birthdate and url to tagger view. Makes clicking performer name open stash profile in new tab instead of current tab.
+  version: 0.2.1-0132a6a
+  date: 2024-02-11 03:26:25
+  path: stashPerformerTaggerAdditions.zip
+  sha256: 0e1625a7c63e947cdb66bbda262901229bac5895bb6062ae6d2dd132407b04d5
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashPerformerURLSearchbox
+  name: Stash Performer URL Searchbox
+  metadata:
+    description: Adds a search by performer url textbox to the performers page
+  version: 0.2.1-0132a6a
+  date: 2024-02-11 03:26:25
+  path: stashPerformerURLSearchbox.zip
+  sha256: d6f0a279a95c3c54cfcab90f1f71e77712ece3a37c467859863af4855eabec73
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashSceneTaggerAdditions
+  name: Stash Scene Tagger Additions
+  metadata:
+    description: Adds scene duration and filepath to tagger view.
+  version: 0.3.2-0132a6a
+  date: 2024-02-11 03:26:25
+  path: stashSceneTaggerAdditions.zip
+  sha256: 8c132c02ea14cdfeaf2711a3167cdb7c973693985d526e8c96c98333b06ea31c
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+    - stashOpenMediaPlayer
+
+- id: stashSceneTaggerColorizer
+  name: Stash Scene Tagger Colorizer
+  metadata:
+    description: Colorize scene tagger match results to show matching and mismatching scene data.
+  version: 0.7.3-b65241b
+  date: 2024-02-25 18:47:44
+  path: stashSceneTaggerColorizer.zip
+  sha256: 2d3ae0fbaa6400f41e61c6e51e2d9df4b275d14365f18f074c40e7e6b314a9cc
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashSceneTaggerDraftSubmit
+  name: Stash Scene Tagger Draft Submit
+  metadata:
+    description: Adds button to Scene Tagger to submit draft to stashdb
+  version: 0.1.4-db17d98
+  date: 2024-02-24 18:02:24
+  path: stashSceneTaggerDraftSubmit.zip
+  sha256: b451746ad1cae87980c09da8b41a18550c07fba944e6027fbf43ddafefccce2c
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashSetStashboxFavoritePerformers
+  name: Stash Set Stashbox Favorite Performers
+  metadata:
+    description: Set Stashbox favorite performers according to stash favorites
+  version: 0.6.5-2cfcc1a
+  date: 2024-04-08 13:40:47
+  path: stashSetStashboxFavoritePerformers.zip
+  sha256: ab0b4657ea954279fb71ae78bf7b5ef7e45894ffe25070047388df49bc383dec
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashStashIDIcon
+  name: Stash StashID Icon
+  metadata:
+    description: Adds checkmark icon to performer and studio cards that have a stashid
+  version: 0.2.2-c980e08
+  date: 2024-02-13 15:27:38
+  path: stashStashIDIcon.zip
+  sha256: 77382da50fd096d139cb7412e6babbef0a472edcfd252f636a3420b3cf6388f1
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashStashIDInput
+  name: Stash StashID Input
+  metadata:
+    description: Adds input for entering new stash id to performer details page and studio page
+  version: 0.7.3-7a101df
+  date: 2024-03-08 20:58:07
+  path: stashStashIDInput.zip
+  sha256: d5c48184f9a775828073e49e4f120cdaa0029db996fc294b85f34fc71b956912
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashStashboxSceneCount
+  name: Stash Stashbox Scene Count
+  metadata:
+    description: Adds stashbox scene counts to performers and studios
+  version: 0.3.3-2cfcc1a
+  date: 2024-04-08 13:40:47
+  path: stashStashboxSceneCount.zip
+  sha256: b2b83542d7ce3a07c92fbc66305662c0ff67b7fb99ee77f16e8d1988e5c739d9
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashStats
+  name: Stash Stats
+  metadata:
+    description: Adds stats to stats page
+  version: 0.5.0-adb5a71
+  date: 2024-02-23 16:46:08
+  path: stashStats.zip
+  sha256: 6d5ae3522ef9c97521b015bf15219b880a52512adba22f18c1f445e7147e3107
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashTagImageCropper
+  name: Stash Tag Image Cropper
+  metadata:
+    description: Adds an image cropper to tag page
+  version: 0.2.3-ccf4986
+  date: 2024-02-15 11:16:23
+  path: stashTagImageCropper.zip
+  sha256: 6914f974361be95046e757b8479f8f39b43b49b2ea23e117dbff87e47ed7bc27
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
+- id: stashUserscriptLibrary7dJx1qP
+  name: 7dJx1qP's Stash Userscript Library
+  metadata:
+    description: Exports utility functions and a Stash class that emits events whenever a GQL response is received and whenenever a page navigation change is detected
+  version: 0.43.0-d997037
+  date: 2024-04-08 13:36:15
+  path: stashUserscriptLibrary7dJx1qP.zip
+  sha256: b939fe9a238805144d9448c63e99a1bcdd4699bad1611d3e5122a29b4cb82802
+
+- id: stashVideoPlayerABLoopTimeInput
+  name: Stash Video Player AB Loop Time Input
+  metadata:
+    description: Replaces the video player AB loop start and end buttons with time inputs
+  version: 0.1.0-1fdedf2
+  date: 2024-02-16 19:09:09
+  path: stashVideoPlayerABLoopTimeInput.zip
+  sha256: 0345c0e18c281e4c7b7bd476a6851ad4c2879b6100a5f42037457f63cbd18adb
+  requires:
+    - stashUserscriptLibrary7dJx1qP
+
