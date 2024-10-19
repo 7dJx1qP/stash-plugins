@@ -74,7 +74,7 @@
                     alert('No stashbox source selected.');
                     return;
                 }
-                const selectedStashboxIndex = parseInt(selectedStashbox.replace(/^stashbox:/, ''));
+                const selectedStashboxIndex = stashBoxes.findIndex(box => box.endpoint === selectedStashbox.replace(/^stashbox:/, ''));
                 const existingStashId = data.stash_ids.find(o => o.endpoint === stashBoxes[selectedStashboxIndex].endpoint);
                 if (existingStashId) {
                     alert(`Scene already has StashID for ${stashBoxes[selectedStashboxIndex].endpoint}.`);
