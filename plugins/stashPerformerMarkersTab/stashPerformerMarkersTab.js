@@ -45,7 +45,7 @@
                 const markersCount = (await getPerformerMarkersCount(performerId)).data.findSceneMarkers.count;
                 document.querySelector(`#${markersTabId} span`).innerHTML = markersCount;
                 const performerName = document.querySelector('.performer-head h2').innerText;
-                const markersUrl = `${window.location.origin}/scenes/markers?c=${JSON.stringify({"type":"performers","value":[{"id":performerId,"label":performerName}],"modifier":"INCLUDES_ALL"})}`
+                const markersUrl = `${window.location.origin}/scenes/markers?c=("type":"performers","modifier":"INCLUDES_ALL","value":("items":[("id":"${performerId}","label":"${performerName}")],"excluded":[]))&sortby=created_at&sortdir=desc&disp=2`;
                 markerTab.href = markersUrl;
             }
         });
