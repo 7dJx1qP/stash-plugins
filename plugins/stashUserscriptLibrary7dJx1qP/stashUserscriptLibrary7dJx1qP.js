@@ -13,7 +13,7 @@
             const response = await originalFetch(resource, config);
             // response interceptor here
             const contentType = response.headers.get("content-type");
-            if (contentType && contentType.indexOf("application/json") !== -1 && typeof resource === "string" && resource.endsWith('/graphql')) {
+            if (contentType && (contentType.indexOf("application/json") !== -1 || contentType.indexOf("application/graphql-response+json") !== -1) && typeof resource === "string" && resource.endsWith('/graphql')) {
                 try {
                     const data = await response.clone().json();
                     stashListener.dispatchEvent(new CustomEvent('response', { 'detail': data }));
